@@ -1,8 +1,6 @@
 -- FundRage schema — spec §3 (Phase 0)
 -- All 10 tables, enums, FKs, RLS. behavior_events is append-only by trigger.
 
-create extension if not exists pgcrypto;
-
 -- ── Enums ────────────────────────────────────────────────────────────
 create type news_event_status as enum ('detected', 'classified', 'matched', 'pushed', 'expired');
 create type push_status as enum ('sent', 'opened', 'dismissed', 'converted');

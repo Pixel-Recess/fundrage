@@ -7,3 +7,7 @@ coverage/
 *.log
 .DS_Store
 .supabase/
+# pre-repo originals kept at folder root
+/files.zip
+/*.docx
+/project-context.md

@@ -126,59 +126,59 @@
 
 ### 4.1 Ingestion Service (worker, every 5 min)
 
-  - > Poll NewsAPI top headlines + GDELT 2.0 events + curated RSS list.
+- > Poll NewsAPI top headlines + GDELT 2.0 events + curated RSS list.
 
-  - > Normalize → dedupe (Redis fingerprint on normalized headline + domain cluster) → upsert news\_events candidates.
+- > Normalize → dedupe (Redis fingerprint on normalized headline + domain cluster) → upsert news\_events candidates.
 
-  - > Emit event.detected job.
+- > Emit event.detected job.
 
 ### 4.2 Classifier (LLM, job consumer)
 
-  - > Input: headline + summary/lede.
+- > Input: headline + summary/lede.
 
-  - > Prompt returns strict JSON: { topic\_slug, cause\_codes\[\], summary, actionable: bool }.
+- > Prompt returns strict JSON: { topic\_slug, cause\_codes\[\], summary, actionable: bool }.
 
-  - > actionable=false (e.g., celebrity news, sports) → mark expired, stop.
+- > actionable=false (e.g., celebrity news, sports) → mark expired, stop.
 
-  - > Idempotent; retries with backoff; log token cost per event.
+- > Idempotent; retries with backoff; log token cost per event.
 
 ### 4.3 Velocity Engine (Redis counters)
 
-  - > Per event cluster: count distinct sources + article mentions in sliding 1h/6h windows.
+- > Per event cluster: count distinct sources + article mentions in sliding 1h/6h windows.
 
-  - > velocity\_score = w1·source\_count + w2·mention\_rate\_delta + w3·major\_outlet\_bonus
+- > velocity\_score = w1·source\_count + w2·mention\_rate\_delta + w3·major\_outlet\_bonus
 
-  - > Threshold V\_push (start: score ≥ 0.7 normalized, tune weekly). Crossing threshold → emit event.surging.
+- > Threshold V\_push (start: score ≥ 0.7 normalized, tune weekly). Crossing threshold → emit event.surging.
 
 ### 4.4 Matcher (job consumer on event.surging)
 
-  - > Query charities where cause\_codes && event.cause\_codes AND cn\_rating ≥ 75 AND candid\_apple\_pay\_eligible = true AND last\_verified\_at \> now()-24h.
+- > Query charities where cause\_codes && event.cause\_codes AND cn\_rating ≥ 75 AND candid\_apple\_pay\_eligible = true AND last\_verified\_at \> now()-24h.
 
-  - > LLM re-rank top 10 → top 3 with one-line rationale each ("running shelters in the flood zone").
+- > LLM re-rank top 10 → top 3 with one-line rationale each ("running shelters in the flood zone").
 
-  - > Write event\_charity\_matches, set event matched.
+- > Write event\_charity\_matches, set event matched.
 
 ### 4.5 Push Decision Engine (see §6) → APNs sender.
 
 ### 4.6 Donation Service
 
-  - > Build Every.org Donate Link with prefilled amount + redirect-back params.
+- > Build Every.org Donate Link with prefilled amount + redirect-back params.
 
-  - > Insert donations row (initiated) before handoff.
+- > Insert donations row (initiated) before handoff.
 
-  - > **Webhook endpoint** /webhooks/everyorg (HMAC-verified): match by donation metadata → set confirmed, stamp everyorg\_donation\_id, mark push converted, append behavior\_events(kind='give'), trigger closure push/in-app receipt card.
+- > **Webhook endpoint** /webhooks/everyorg (HMAC-verified): match by donation metadata → set confirmed, stamp everyorg\_donation\_id, mark push converted, append behavior\_events(kind='give'), trigger closure push/in-app receipt card.
 
 ### 4.7 Charity Sync (daily worker)
 
-  - > Refresh Charity Navigator ratings, CharityWatch grades, Candid Apple Pay eligibility (daily check is an Apple requirement).
+- > Refresh Charity Navigator ratings, CharityWatch grades, Candid Apple Pay eligibility (daily check is an Apple requirement).
 
-  - > Any charity failing a check → excluded from matching immediately.
+- > Any charity failing a check → excluded from matching immediately.
 
 ### 4.8 Learning Loop (nightly batch, simple v1)
 
-  - > weight += 0.3 per give in topic; weight -= 0.05 per ignored push; clamp \[0.1, 3.0\].
+- > weight += 0.3 per give in topic; weight -= 0.05 per ignored push; clamp \[0.1, 3.0\].
 
-  - > Users whose last 3 pushes were ignored → auto-reduce their weekly cap by 1 (floor 1) until next give.
+- > Users whose last 3 pushes were ignored → auto-reduce their weekly cap by 1 (floor 1) until next give.
 
 ## 5\. API (client-facing, JSON, bearer auth)
 
@@ -246,27 +246,27 @@ Kill switch: global PUSH\_ENABLED env flag; per-event retraction if a story corr
 
 ## 8\. Security, Privacy, Compliance
 
-  - > **Data minimization:** no article-level reading history stored except explicit share-ins; declared sources are a flat list, not activity.
+- > **Data minimization:** no article-level reading history stored except explicit share-ins; declared sources are a flat list, not activity.
 
-  - > Row-level security on all user tables; behavior\_events readable only by service role.
+- > Row-level security on all user tables; behavior\_events readable only by service role.
 
-  - > Webhook endpoints: HMAC signature verification + replay protection (timestamp window).
+- > Webhook endpoints: HMAC signature verification + replay protection (timestamp window).
 
-  - > Secrets in platform env vault; never in repo. Claude Code instruction: **never commit keys, never log tokens or donation amounts with PII together.**
+- > Secrets in platform env vault; never in repo. Claude Code instruction: **never commit keys, never log tokens or donation amounts with PII together.**
 
-  - > Privacy policy + App Store privacy labels: declare topics/preferences, giving history, device token. Nothing else collected.
+- > Privacy policy + App Store privacy labels: declare topics/preferences, giving history, device token. Nothing else collected.
 
-  - > App Review prep (Guideline 3.2.1): documentation that all listed charities are verified 501(c)(3)s and donations are processed by Every.org (itself a 501(c)(3)); expect reviewer questions — keep a compliance memo in the repo.
+- > App Review prep (Guideline 3.2.1): documentation that all listed charities are verified 501(c)(3)s and donations are processed by Every.org (itself a 501(c)(3)); expect reviewer questions — keep a compliance memo in the repo.
 
-  - > Delete-my-account endpoint: hard-delete user rows, tombstone behavior\_events (required for App Store).
+- > Delete-my-account endpoint: hard-delete user rows, tombstone behavior\_events (required for App Store).
 
 ## 9\. Build Phases (hand to Claude Code in this order)
 
 **Phase 0 — Skeleton (day 1–2)** Repo scaffold, Postgres schema + migrations, auth (Sign in with Apple), health checks, CI with tests required.
 
-**Phase 1 — Charity spine (day 2–4)** charities sync workers (Charity Navigator, Candid), Every.org Donate Link builder, webhook receiver with HMAC verification + test fixtures. *Definition of done: a confirmed test donation round-trips into the donations table.*
+**Phase 1 — Charity spine (day 2–4)** charities sync workers (Charity Navigator, Candid), Every.org Donate Link builder, webhook receiver with HMAC verification + test fixtures. _Definition of done: a confirmed test donation round-trips into the donations table._
 
-**Phase 2 — News spine (day 4–7)** Ingestion workers, dedupe, LLM classifier with JSON-schema-validated output, velocity engine with tunable weights. *DoD: real surging story lands in news\_events as matched with 3 ranked charities.*
+**Phase 2 — News spine (day 4–7)** Ingestion workers, dedupe, LLM classifier with JSON-schema-validated output, velocity engine with tunable weights. _DoD: real surging story lands in news\_events as matched with 3 ranked charities._
 
 **Phase 3 — User loop (day 7–10)** Topics/sources/preferences endpoints, feed, give flow, share-in endpoint, telemetry ingestion.
 
