@@ -1,0 +1,35 @@
+-- Seed topic taxonomy (spec §3: ~20–40 rows).
+-- cause_codes map to Charity Navigator cause categories; refine in Phase 1
+-- when the Charity Navigator sync lands.
+
+insert into topics (slug, display_name, cause_codes) values
+  ('disaster-relief',      'Disaster Relief',           '{disaster-relief,international-relief}'),
+  ('climate',              'Climate & Environment',     '{environment,climate}'),
+  ('wildlife',             'Wildlife Conservation',     '{environment,wildlife-conservation}'),
+  ('oceans',               'Oceans & Waterways',        '{environment,oceans}'),
+  ('animal-welfare',       'Animal Welfare',            '{animal-rights-welfare}'),
+  ('hunger',               'Hunger & Food Security',    '{food-banks,hunger}'),
+  ('housing-homelessness', 'Housing & Homelessness',    '{homeless-services,housing}'),
+  ('public-health',        'Public Health',             '{health,public-health}'),
+  ('mental-health',        'Mental Health',             '{health,mental-health}'),
+  ('disease-research',     'Disease Research',          '{health,medical-research}'),
+  ('education',            'Education',                 '{education}'),
+  ('childrens-welfare',    'Children''s Welfare',       '{children-youth,child-welfare}'),
+  ('civil-rights',         'Civil Rights',              '{civil-rights,advocacy}'),
+  ('voting-rights',        'Voting & Democracy',        '{civil-rights,democracy}'),
+  ('press-freedom',        'Press Freedom',             '{journalism,free-speech}'),
+  ('lgbtq-rights',         'LGBTQ+ Rights',             '{civil-rights,lgbtq}'),
+  ('womens-rights',        'Women''s Rights',           '{civil-rights,womens-services}'),
+  ('reproductive-rights',  'Reproductive Rights',       '{health,reproductive-health}'),
+  ('gun-violence',         'Gun Violence Prevention',   '{advocacy,violence-prevention}'),
+  ('criminal-justice',     'Criminal Justice Reform',   '{civil-rights,criminal-justice}'),
+  ('immigration',          'Immigration & Border',      '{immigration,legal-services}'),
+  ('refugees',             'Refugees & Displacement',   '{international-relief,refugees}'),
+  ('humanitarian-crisis',  'Humanitarian Crises',       '{international-relief,humanitarian}'),
+  ('veterans',             'Veterans',                  '{veterans}'),
+  ('disability-rights',    'Disability Rights',         '{civil-rights,disability-services}'),
+  ('elder-care',           'Older Adults',              '{human-services,seniors}'),
+  ('indigenous-rights',    'Indigenous Rights',         '{civil-rights,indigenous}'),
+  ('arts-culture',         'Arts & Culture',            '{arts-culture-humanities}'),
+  ('science-research',     'Science & Research',        '{research-public-policy}'),
+  ('digital-rights',       'Digital Rights & Privacy',  '{civil-rights,technology}');
