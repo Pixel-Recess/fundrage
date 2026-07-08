@@ -1,7 +1,7 @@
-import type { FastifyInstance } from 'fastify';
-import { AppleTokenError, type AppleIdentity } from '../auth/apple.js';
-import type { createSessionService } from '../auth/session.js';
-import type { Db, UserRow } from '../types.js';
+import type { FastifyInstance } from "fastify";
+import { AppleTokenError, type AppleIdentity } from "../auth/apple.js";
+import type { createSessionService } from "../auth/session.js";
+import type { Db, UserRow } from "../types.js";
 
 interface AuthAppleBody {
   identity_token?: string;
@@ -15,23 +15,25 @@ export interface AuthDeps {
 
 export function registerAuthRoutes(app: FastifyInstance, deps: AuthDeps): void {
   app.post<{ Body: AuthAppleBody }>(
-    '/auth/apple',
+    "/auth/apple",
     {
       schema: {
         body: {
-          type: 'object',
-          required: ['identity_token'],
-          properties: { identity_token: { type: 'string', minLength: 1 } },
+          type: "object",
+          required: ["identity_token"],
+          properties: { identity_token: { type: "string", minLength: 1 } },
         },
       },
     },
     async (req, reply) => {
       let identity: AppleIdentity;
       try {
-        identity = await deps.verifyAppleToken(req.body.identity_token as string);
+        identity = await deps.verifyAppleToken(
+          req.body.identity_token as string,
+        );
       } catch (err) {
         if (err instanceof AppleTokenError) {
-          return reply.code(401).send({ error: 'invalid_identity_token' });
+          return reply.code(401).send({ error: "invalid_identity_token" });
         }
         throw err;
       }
@@ -46,7 +48,7 @@ export function registerAuthRoutes(app: FastifyInstance, deps: AuthDeps): void {
       );
       const user = rows[0];
       if (!user) {
-        return reply.code(500).send({ error: 'user_upsert_failed' });
+        return reply.code(500).send({ error: "user_upsert_failed" });
       }
 
       const token = await deps.sessions.issue({ userId: user.id });

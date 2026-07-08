@@ -1,7 +1,7 @@
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify } from "jose";
 
-const SESSION_TTL = '30d';
-const ALG = 'HS256';
+const SESSION_TTL = "30d";
+const ALG = "HS256";
 
 export interface SessionClaims {
   userId: string;
@@ -20,7 +20,7 @@ export function createSessionService(jwtSecret: string) {
     async verify(token: string): Promise<SessionClaims | null> {
       try {
         const { payload } = await jwtVerify(token, key, { algorithms: [ALG] });
-        return typeof payload.uid === 'string' ? { userId: payload.uid } : null;
+        return typeof payload.uid === "string" ? { userId: payload.uid } : null;
       } catch {
         return null;
       }

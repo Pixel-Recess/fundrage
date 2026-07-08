@@ -1,5 +1,5 @@
-import pg from 'pg';
-import type { Db } from '../types.js';
+import pg from "pg";
+import type { Db } from "../types.js";
 
 export function createDb(databaseUrl: string): Db & { close(): Promise<void> } {
   const pool = new pg.Pool({ connectionString: databaseUrl, max: 10 });
@@ -9,7 +9,7 @@ export function createDb(databaseUrl: string): Db & { close(): Promise<void> } {
       return { rows: res.rows };
     },
     async ping() {
-      await pool.query('SELECT 1');
+      await pool.query("SELECT 1");
     },
     async close() {
       await pool.end();

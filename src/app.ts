@@ -1,11 +1,11 @@
-import Fastify, { type FastifyInstance } from 'fastify';
-import type { Config } from './config.js';
-import type { Db, Kv } from './types.js';
-import { createAppleVerifier, type AppleIdentity } from './auth/apple.js';
-import { createSessionService } from './auth/session.js';
-import { registerIdempotency } from './plugins/idempotency.js';
-import { registerHealthRoutes } from './routes/health.js';
-import { registerAuthRoutes } from './routes/auth.js';
+import Fastify, { type FastifyInstance } from "fastify";
+import type { Config } from "./config.js";
+import type { Db, Kv } from "./types.js";
+import { createAppleVerifier, type AppleIdentity } from "./auth/apple.js";
+import { createSessionService } from "./auth/session.js";
+import { registerIdempotency } from "./plugins/idempotency.js";
+import { registerHealthRoutes } from "./routes/health.js";
+import { registerAuthRoutes } from "./routes/auth.js";
 
 export interface AppDeps {
   db: Db;
@@ -17,8 +17,8 @@ export interface AppDeps {
 export function buildApp(config: Config, deps: AppDeps): FastifyInstance {
   const app = Fastify({
     logger: {
-      level: config.env === 'test' ? 'silent' : 'info',
-      redact: ['req.headers.authorization', 'req.body.identity_token'], // never log tokens
+      level: config.env === "test" ? "silent" : "info",
+      redact: ["req.headers.authorization", "req.body.identity_token"], // never log tokens
     },
   });
 
