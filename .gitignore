@@ -11,3 +11,4 @@ coverage/
 /files.zip
 /*.docx
 /project-context.md
+*.tsbuildinfo
