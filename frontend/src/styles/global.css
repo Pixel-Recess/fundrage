@@ -1,3 +1,6 @@
+/* Responsive breakpoint convention used across every screen's .screen wrapper:
+   mobile (default) < 600px, tablet >= 600px, desktop >= 1024px. */
+
 *,
 *::before,
 *::after {

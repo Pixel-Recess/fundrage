@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100%;
-  max-width: 390px;
+  width: 100%;
   margin: 0 auto;
   background: var(--color-white);
 }
@@ -58,6 +58,18 @@
   aspect-ratio: 350 / 300;
   margin-top: 20px;
   flex-shrink: 0;
+}
+
+@media (min-width: 600px) {
+  .illustrationWrap {
+    width: 420px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .illustrationWrap {
+    width: 480px;
+  }
 }
 
 .bg {
