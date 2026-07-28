@@ -31,8 +31,11 @@ export interface IngestionResult {
  * event.detected jobs. NewsAPI is intentionally excluded (project-context.md
  * decision #7 — GDELT + RSS only, NewsAPI's production tier is too costly).
  */
-export async function runIngestion(deps: IngestionDeps): Promise<IngestionResult> {
-  const fetchGdelt = deps.fetchGdelt ?? ((query: string) => fetchGdeltCandidates(query));
+export async function runIngestion(
+  deps: IngestionDeps,
+): Promise<IngestionResult> {
+  const fetchGdelt =
+    deps.fetchGdelt ?? ((query: string) => fetchGdeltCandidates(query));
   const fetchRss = deps.fetchRss ?? (() => fetchRssCandidates(RSS_FEEDS));
 
   const [gdeltResult, rssResult] = await Promise.allSettled([
@@ -57,7 +60,10 @@ export async function runIngestion(deps: IngestionDeps): Promise<IngestionResult
   let skipped = 0;
 
   for (const candidate of candidates) {
-    const fingerprint = computeFingerprint(candidate.headline, candidate.canonicalUrl);
+    const fingerprint = computeFingerprint(
+      candidate.headline,
+      candidate.canonicalUrl,
+    );
     const claimed = await claimFingerprint(deps.kv, fingerprint, ttlSeconds);
     if (!claimed) {
       skipped++;

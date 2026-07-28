@@ -56,8 +56,11 @@ export async function fetchGdeltCandidates(
   const articles = Array.isArray(body.articles) ? body.articles : [];
 
   return articles
-    .filter((article): article is Required<Pick<GdeltArticle, "url" | "title" | "domain">> & GdeltArticle =>
-      Boolean(article.url && article.title && article.domain),
+    .filter(
+      (
+        article,
+      ): article is Required<Pick<GdeltArticle, "url" | "title" | "domain">> &
+        GdeltArticle => Boolean(article.url && article.title && article.domain),
     )
     .map((article) => ({
       headline: article.title,

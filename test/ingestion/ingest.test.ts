@@ -7,8 +7,8 @@ import type { NewsCandidate } from "../../src/ingestion/types.js";
 function fakeDb(): Db {
   let nextId = 1;
   return {
-    async query() {
-      return { rows: [{ id: String(nextId++) }] };
+    async query<R = unknown>() {
+      return { rows: [{ id: String(nextId++) }] as R[] };
     },
     async ping() {},
   };
@@ -45,7 +45,10 @@ describe("runIngestion", () => {
 
     expect(result).toEqual({ inserted: 2, skipped: 0 });
     expect(queue.jobs).toHaveLength(2);
-    expect(queue.jobs.map((j) => j.name)).toEqual(["event.detected", "event.detected"]);
+    expect(queue.jobs.map((j) => j.name)).toEqual([
+      "event.detected",
+      "event.detected",
+    ]);
   });
 
   it("dedupes the same story reported by both GDELT and RSS", async () => {

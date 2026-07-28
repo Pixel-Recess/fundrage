@@ -10,7 +10,10 @@ export function normalizeHeadline(headline: string): string {
 /**
  * Dedupe key per spec §4.1: "Redis fingerprint on normalized headline + domain cluster."
  */
-export function computeFingerprint(headline: string, canonicalUrl: string): string {
+export function computeFingerprint(
+  headline: string,
+  canonicalUrl: string,
+): string {
   let domain = "";
   try {
     domain = new URL(canonicalUrl).hostname.replace(/^www\./, "");

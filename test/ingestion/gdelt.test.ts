@@ -36,20 +36,33 @@ describe("fetchGdeltCandidates", () => {
     const fetchImpl = fakeFetch({
       ok: true,
       json: async () => ({
-        articles: [{ url: "https://example.com/a" }, { title: "No URL here", domain: "x.com" }],
+        articles: [
+          { url: "https://example.com/a" },
+          { title: "No URL here", domain: "x.com" },
+        ],
       }),
     });
 
-    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).resolves.toEqual([]);
+    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).resolves.toEqual(
+      [],
+    );
   });
 
   it("tolerates a response with no articles field", async () => {
     const fetchImpl = fakeFetch({ ok: true, json: async () => ({}) });
-    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).resolves.toEqual([]);
+    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).resolves.toEqual(
+      [],
+    );
   });
 
   it("throws on a non-OK response", async () => {
-    const fetchImpl = fakeFetch({ ok: false, status: 500, statusText: "Internal Server Error" });
-    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).rejects.toThrow(/500/);
+    const fetchImpl = fakeFetch({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+    await expect(fetchGdeltCandidates("wildfire", fetchImpl)).rejects.toThrow(
+      /500/,
+    );
   });
 });

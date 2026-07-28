@@ -5,4 +5,6 @@ import pino from "pino";
  * (e.g. the ingestion worker), where `app.log` isn't available. Keeps the
  * same "no raw console.*" discipline as the rest of the codebase.
  */
-export const logger = pino({ level: process.env.NODE_ENV === "test" ? "silent" : "info" });
+export const logger = pino({
+  level: process.env.NODE_ENV === "test" ? "silent" : "info",
+});

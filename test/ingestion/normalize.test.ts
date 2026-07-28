@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { normalizeHeadline, computeFingerprint } from "../../src/ingestion/normalize.js";
+import {
+  normalizeHeadline,
+  computeFingerprint,
+} from "../../src/ingestion/normalize.js";
 
 describe("normalizeHeadline", () => {
   it("lowercases and strips punctuation", () => {
@@ -26,7 +29,10 @@ describe("computeFingerprint", () => {
   });
 
   it("strips the www. prefix so www and bare domain match", () => {
-    const withWww = computeFingerprint("Big Story", "https://www.example.com/a");
+    const withWww = computeFingerprint(
+      "Big Story",
+      "https://www.example.com/a",
+    );
     const withoutWww = computeFingerprint("Big Story", "https://example.com/b");
     expect(withWww).toBe(withoutWww);
   });

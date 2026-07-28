@@ -1,0 +1,6 @@
+dist/
+coverage/
+node_modules/
+# frontend is a separate Vite/React project with its own conventions and tooling —
+# same boundary the root "lint" script already respects (eslint src test).
+frontend/

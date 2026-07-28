@@ -9,7 +9,10 @@ export interface RssFeed {
  * not a final editorial decision.
  */
 export const RSS_FEEDS: RssFeed[] = [
-  { slug: "nyt", url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" },
+  {
+    slug: "nyt",
+    url: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+  },
   { slug: "bbc", url: "http://feeds.bbci.co.uk/news/rss.xml" },
   { slug: "npr", url: "https://feeds.npr.org/1001/rss.xml" },
   { slug: "guardian", url: "https://www.theguardian.com/world/rss" },
