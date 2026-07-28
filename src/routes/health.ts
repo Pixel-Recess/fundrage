@@ -9,17 +9,19 @@ export function registerHealthRoutes(
   app.get("/healthz", async () => ({ status: "ok" }));
 
   // Readiness: dependencies reachable.
-  app.get("/readyz", async (_req, reply) => {
+  app.get("/readyz", async (req, reply) => {
     const checks: Record<string, "ok" | "failed"> = {
       postgres: "ok",
       redis: "ok",
     };
     await Promise.all([
-      deps.db.ping().catch(() => {
+      deps.db.ping().catch((err: unknown) => {
         checks.postgres = "failed";
+        req.log.error({ err }, "readyz: postgres ping failed");
       }),
-      deps.kv.ping().catch(() => {
+      deps.kv.ping().catch((err: unknown) => {
         checks.redis = "failed";
+        req.log.error({ err }, "readyz: redis ping failed");
       }),
     ]);
     const healthy = Object.values(checks).every((c) => c === "ok");
