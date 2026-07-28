@@ -1,12 +1,22 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1;
+  left: 0;
+  right: 0;
+  z-index: 2;
   background: var(--color-rage-200);
   /* Reserves room for the device's real status bar / notch / Dynamic Island instead of a
      fixed height baked in for one specific device — falls back to 20px where env() isn't
      supported. */
   padding-top: max(20px, env(safe-area-inset-top));
+}
+
+.headerSpacer {
+  /* Matches .header's total rendered height (its own top padding + .headerRow's height)
+     so content isn't hidden underneath on first render, now that .header is fixed and no
+     longer reserves this space in normal flow itself. */
+  height: calc(72px + max(20px, env(safe-area-inset-top)));
+  flex-shrink: 0;
 }
 
 .headerRow {

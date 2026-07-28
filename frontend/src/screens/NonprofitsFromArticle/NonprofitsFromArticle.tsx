@@ -62,6 +62,7 @@ export function NonprofitsFromArticle({
           Back
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }

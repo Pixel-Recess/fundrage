@@ -70,6 +70,7 @@ export function Notifications({ onBack }: NotificationsProps) {
           Back
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }

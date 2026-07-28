@@ -34,6 +34,7 @@ export function DonationSuccess({ nonprofitName, amount, onDone }: DonationSucce
           Done
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }

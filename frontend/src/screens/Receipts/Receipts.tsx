@@ -61,6 +61,7 @@ export function Receipts({ receipts, onBack, onSelectReceipt }: ReceiptsProps) {
           Back
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }

@@ -1,12 +1,23 @@
 .footer {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
   background: var(--color-white);
+}
+
+.footerSpacer {
+  /* Matches .footer's total rendered height (padding + .navButton's height) so content
+     isn't hidden underneath it, now that .footer is fixed and no longer reserves this
+     space in normal flow itself. */
+  height: calc(20px + 40px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
 }
 
 .navButton {

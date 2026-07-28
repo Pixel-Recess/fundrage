@@ -76,6 +76,7 @@ export function ReceiptDetail({ receipt, profileEmail, onBack }: ReceiptDetailPr
           Back
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
 
       {sent && (
         <div className={styles.toastBackdrop} role="alert">

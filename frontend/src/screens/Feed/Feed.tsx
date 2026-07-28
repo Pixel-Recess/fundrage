@@ -70,6 +70,7 @@ export function Feed({ selectedTopicIds, onBack, onSelectArticle, onOpenAccount 
           Back
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }

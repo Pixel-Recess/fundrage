@@ -85,10 +85,18 @@
 }
 
 .backFooter {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
   background: var(--color-white);
+}
+
+.footerSpacer {
+  height: calc(60px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
 }
 
 .backButton {

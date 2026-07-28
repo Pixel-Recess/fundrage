@@ -155,6 +155,7 @@ export function Account({
           <ExitToAppIcon size={14} />
         </button>
       </footer>
+      <div className={styles.footerSpacer} aria-hidden="true" />
 
       {confirmingDelete && (
         <div className={styles.modalBackdrop} role="dialog" aria-modal="true">
