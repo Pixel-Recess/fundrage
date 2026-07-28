@@ -148,14 +148,6 @@ export function App() {
       return (
         <Feed
           selectedTopicIds={step.topicIds}
-          onBack={() =>
-            setStep({
-              name: 'createAccount',
-              topicIds: step.topicIds,
-              sourceIds: step.sourceIds,
-              backTo: { name: 'welcome' },
-            })
-          }
           onSelectArticle={(article) =>
             setStep({ name: 'articleDetail', topicIds: step.topicIds, sourceIds: step.sourceIds, article })
           }

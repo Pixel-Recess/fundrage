@@ -8,12 +8,11 @@ const SOURCES_BY_ID = new Map(SOURCES.map((source) => [source.id, source]));
 
 export interface FeedProps {
   selectedTopicIds: string[];
-  onBack: () => void;
   onSelectArticle: (article: Article) => void;
   onOpenAccount: () => void;
 }
 
-export function Feed({ selectedTopicIds, onBack, onSelectArticle, onOpenAccount }: FeedProps) {
+export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedProps) {
   const topicIds = new Set(selectedTopicIds);
   // Filtered by topic only — source selection isn't a display filter here since
   // in the real backend, source_slugs describe where ingestion detects a story,
@@ -64,13 +63,6 @@ export function Feed({ selectedTopicIds, onBack, onSelectArticle, onOpenAccount 
           </div>
         ))}
       </div>
-
-      <footer className={styles.backFooter}>
-        <button type="button" className={styles.backButton} onClick={onBack}>
-          Back
-        </button>
-      </footer>
-      <div className={styles.footerSpacer} aria-hidden="true" />
     </div>
   );
 }
