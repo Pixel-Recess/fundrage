@@ -15,7 +15,7 @@
 
 .hero {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 350 / 200;
   object-fit: cover;
   border-radius: 3px;
 }

@@ -22,7 +22,8 @@
 
 .emptyIllustration {
   width: 190px;
-  height: 158px;
+  max-width: 100%;
+  height: auto;
 }
 
 .emptyText {
