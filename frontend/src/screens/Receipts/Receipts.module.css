@@ -1,0 +1,124 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  background: var(--color-white);
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.emptyIllustration {
+  width: 190px;
+  height: 158px;
+}
+
+.emptyText {
+  margin: 20px 0 0;
+  max-width: 330px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--color-navy-500);
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-mist-200);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.row:first-child {
+  border-top: 1px solid var(--color-mist-200);
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.rowName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-mist-500);
+}
+
+.rowDetails {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-mist-300);
+}
+
+.dot {
+  color: var(--color-mist-300);
+}
+
+.rowRight {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  color: var(--color-navy-500);
+}
+
+.rowAmount {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--color-aqua-300);
+}
+
+.backFooter {
+  position: sticky;
+  bottom: 0;
+  padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+  background: var(--color-white);
+}
+
+.backButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: var(--color-white);
+  border: 1px solid var(--color-mist-200);
+  color: var(--color-mist-400);
+}

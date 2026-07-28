@@ -30,4 +30,6 @@ FundRage converts news-driven emotion into verified charitable action. It monito
 
 ## Current phase
 
-Phase 0 (skeleton): repo scaffold, Postgres schema + migrations, Sign in with Apple auth, health checks, CI with required tests. See spec §9.
+Phase 0 (skeleton) is complete: repo scaffold, Postgres schema + migrations, Sign in with Apple auth, health checks, CI with required tests — all green (30/30 tests passing).
+
+Phase 1 (charity spine): charity sync workers (Charity Navigator, Candid), Every.org Donate Link builder, webhook receiver with HMAC verification + test fixtures. Definition of done: a confirmed test donation round-trips into the `donations` table. See spec §9.

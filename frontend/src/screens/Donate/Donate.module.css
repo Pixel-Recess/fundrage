@@ -1,0 +1,186 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  background: var(--color-white);
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
+.nonprofitName {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-rage-200);
+  text-align: center;
+}
+
+.amounts {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.amountButton {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+  border: 2px solid var(--color-mist-200);
+  background: var(--color-mist-100);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--color-aqua-200);
+  cursor: pointer;
+}
+
+.amountButtonSelected {
+  border-color: var(--color-aqua-200);
+  background: var(--color-white);
+}
+
+.checkBadge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.fieldLabel {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-black);
+}
+
+.fieldBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--color-mist-200);
+  background: rgba(209, 212, 224, 0.15);
+  box-sizing: border-box;
+}
+
+.dollarSign {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-black);
+}
+
+.fieldInput {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-black);
+  -moz-appearance: textfield;
+}
+
+.fieldInput:focus {
+  outline: none;
+}
+
+.fieldInput::-webkit-outer-spin-button,
+.fieldInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sectionLabel {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-navy-500);
+  text-align: center;
+}
+
+.detailsBox {
+  padding: 16px;
+  border-radius: 3px;
+  border: 1px solid var(--color-mist-200);
+}
+
+.ratingCaption {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-navy-500);
+  text-align: center;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.stars {
+  display: flex;
+  gap: 5px;
+  color: var(--color-rage-200);
+}
+
+.ratingPercent {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--color-mist-500);
+}
+
+.detailsBody {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--color-navy-500);
+  text-align: center;
+}
+
+.websiteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 50px;
+  border-radius: 3px;
+  border: 2px solid var(--color-aqua-300);
+  background: var(--color-aqua-300);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: not-allowed;
+  opacity: 0.85;
+}

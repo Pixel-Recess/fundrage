@@ -1,0 +1,86 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  background: var(--color-white);
+}
+
+.grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 20px 100px;
+}
+
+.row {
+  display: flex;
+  gap: 25px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.photoButton {
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border-radius: 3px;
+  border: 2px solid var(--color-mist-200);
+  background: var(--color-mist-100);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 120ms ease;
+}
+
+.photoButton:hover {
+  border-color: var(--color-aqua-300);
+}
+
+.photoButton:focus-visible {
+  outline: 2px solid var(--color-navy-400);
+  outline-offset: 2px;
+}
+
+.photoButtonSelected {
+  /* Border stays neutral now — selection is signaled by full-opacity photo
+     + the checkmark badge, not a border color change (matches Figma's
+     current selected-state box, which reverted to Mist200 here). */
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  transition: opacity 120ms ease;
+}
+
+.photoSelected {
+  opacity: 1;
+}
+
+.checkBadge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+}
+
+.label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-navy-500);
+  text-align: center;
+}

@@ -1,4 +1,5 @@
 import type { Kv } from "../../src/types.js";
+import type { Queue } from "../../src/infra/queue.js";
 
 /** In-memory Kv fake (TTLs ignored — tests are short-lived). */
 export function createFakeKv(): Kv & {
@@ -40,5 +41,23 @@ export function testConfig() {
       issuer: "https://appleid.apple.com",
     },
     pushEnabled: false,
+    ingestion: {
+      intervalMinutes: 5,
+      gdeltQuery: "sourcelang:english",
+      dedupeTtlHours: 48,
+    },
+  };
+}
+
+/** In-memory Queue fake — records every job added instead of hitting Redis/BullMQ. */
+export function createFakeQueue(): Queue & {
+  jobs: Array<{ name: string; data: Record<string, unknown> }>;
+} {
+  const jobs: Array<{ name: string; data: Record<string, unknown> }> = [];
+  return {
+    jobs,
+    async addJob(name, data) {
+      jobs.push({ name, data });
+    },
   };
 }

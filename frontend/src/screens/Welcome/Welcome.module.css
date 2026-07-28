@@ -1,0 +1,41 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  background: var(--color-white);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px 0;
+}
+
+.intro {
+  margin: 0;
+  max-width: 350px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-navy-500);
+  text-align: center;
+}
+
+.illustration {
+  width: 350px;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
+.headline {
+  margin: 40px 0 0;
+  font-family: var(--font-body);
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--color-rage-200);
+  text-align: center;
+}

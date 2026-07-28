@@ -10,6 +10,11 @@ export interface Config {
     issuer: string;
   };
   pushEnabled: boolean;
+  ingestion: {
+    intervalMinutes: number;
+    gdeltQuery: string;
+    dedupeTtlHours: number;
+  };
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
@@ -35,5 +40,11 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       issuer: env.APPLE_ISSUER ?? "https://appleid.apple.com",
     },
     pushEnabled: env.PUSH_ENABLED === "true", // global kill switch, default OFF (spec §6)
+    ingestion: {
+      intervalMinutes: Number(env.INGESTION_INTERVAL_MINUTES ?? 5),
+      // GDELT DOC 2.0 API query syntax — see https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
+      gdeltQuery: env.GDELT_QUERY ?? "sourcelang:english",
+      dedupeTtlHours: Number(env.INGESTION_DEDUPE_TTL_HOURS ?? 48),
+    },
   };
 }
