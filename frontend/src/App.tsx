@@ -4,6 +4,7 @@ import { TopicSelection } from './screens/TopicSelection/TopicSelection';
 import { SourceSelection } from './screens/SourceSelection/SourceSelection';
 import { Feed } from './screens/Feed/Feed';
 import { ArticleDetail } from './screens/ArticleDetail/ArticleDetail';
+import { ArticleReader } from './screens/ArticleDetail/ArticleReader';
 import { NonprofitsFromArticle } from './screens/NonprofitsFromArticle/NonprofitsFromArticle';
 import { Welcome } from './screens/Welcome/Welcome';
 import { CreateAccount } from './screens/CreateAccount/CreateAccount';
@@ -30,6 +31,7 @@ type Step =
   | { name: 'welcome'; topicIds: string[]; sourceIds: string[] }
   | { name: 'feed'; topicIds: string[]; sourceIds: string[] }
   | { name: 'articleDetail'; topicIds: string[]; sourceIds: string[]; article: Article }
+  | { name: 'articleReader'; topicIds: string[]; sourceIds: string[]; article: Article }
   | { name: 'nonprofits'; topicIds: string[]; sourceIds: string[]; article: Article }
   | { name: 'donate'; topicIds: string[]; sourceIds: string[]; article: Article; nonprofit: Nonprofit }
   | {
@@ -169,6 +171,37 @@ export function App() {
         <ArticleDetail
           article={step.article}
           onBack={() => setStep({ name: 'feed', topicIds: step.topicIds, sourceIds: step.sourceIds })}
+          onReadArticle={() =>
+            setStep({
+              name: 'articleReader',
+              topicIds: step.topicIds,
+              sourceIds: step.sourceIds,
+              article: step.article,
+            })
+          }
+          onSeeNonprofits={() =>
+            setStep({
+              name: 'nonprofits',
+              topicIds: step.topicIds,
+              sourceIds: step.sourceIds,
+              article: step.article,
+            })
+          }
+        />
+      );
+
+    case 'articleReader':
+      return (
+        <ArticleReader
+          article={step.article}
+          onBack={() =>
+            setStep({
+              name: 'articleDetail',
+              topicIds: step.topicIds,
+              sourceIds: step.sourceIds,
+              article: step.article,
+            })
+          }
           onSeeNonprofits={() =>
             setStep({
               name: 'nonprofits',

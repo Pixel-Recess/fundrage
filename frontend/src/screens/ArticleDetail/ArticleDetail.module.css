@@ -20,98 +20,74 @@
   height: 5px;
   border-radius: 100px;
   background: var(--color-mist-200);
-  z-index: 3;
-}
-
-.sheetNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: calc(20px + env(safe-area-inset-top)) 16px 10px;
-  background: rgba(249, 249, 249, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
 }
 
-.navTitle {
+.content {
   flex: 1;
-  min-width: 0;
-  margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--color-black);
-  text-align: center;
+  padding: calc(24px + env(safe-area-inset-top)) 20px 100px;
 }
 
-.closeButton {
-  flex-shrink: 0;
-  display: flex;
-  background: none;
-  border: none;
+.sourcePill {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--color-aqua-200);
+  color: var(--color-navy-500);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.card {
+  display: block;
+  width: 100%;
   padding: 0;
-  color: var(--color-aqua-300);
+  border: none;
+  background: none;
+  text-align: left;
   cursor: pointer;
 }
 
-.navSpacer {
-  /* Matches .sheetNav's total rendered height (top/bottom padding + the 22px close
-     icon, the tallest row content) so the preview area doesn't start underneath it,
-     now that the nav is fixed and out of flow. */
-  height: calc(52px + env(safe-area-inset-top));
-  flex-shrink: 0;
-}
-
-.previewArea {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  background: var(--color-mist-100);
-}
-
-.previewImage {
-  position: absolute;
-  inset: 0;
+.thumb {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 350 / 200;
   object-fit: cover;
-}
-
-.gradientOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
-}
-
-.readArticleButton {
-  position: absolute;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 36px;
   border-radius: 3px;
-  border: 1px solid var(--color-mist-200);
-  background: rgba(0, 0, 0, 0.2);
-  color: var(--color-white);
+  border: 2px solid var(--color-mist-200);
+}
+
+.headline {
+  margin: 16px 0 8px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--color-black);
+}
+
+.summary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-mist-500);
+}
+
+.readArticleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 8px 20px;
+  border-radius: 3px;
+  border: 2px solid var(--color-aqua-300);
+  color: var(--color-aqua-500);
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 12px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  cursor: not-allowed;
-  white-space: nowrap;
 }
