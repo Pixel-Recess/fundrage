@@ -1,0 +1,152 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.grabber {
+  position: fixed;
+  top: max(8px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--color-mist-200);
+  z-index: 3;
+}
+
+.sheetNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: calc(20px + env(safe-area-inset-top)) 16px 10px;
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.domain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-mist-400);
+}
+
+.closeButton {
+  flex-shrink: 0;
+  display: flex;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-aqua-300);
+  cursor: pointer;
+}
+
+.navSpacer {
+  height: calc(52px + env(safe-area-inset-top));
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 20px 100px;
+  text-align: center;
+}
+
+.mockBanner {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 12px;
+  border-radius: 3px;
+  background: var(--color-purple-100);
+  color: var(--color-navy-500);
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.nonprofitName {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-rage-200);
+}
+
+.frequencyLabel {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-mist-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.amount {
+  margin: 12px 0 24px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 48px;
+  color: var(--color-navy-500);
+}
+
+.payButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px 20px;
+  border-radius: 3px;
+  border: none;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: not-allowed;
+}
+
+.altPaymentsNote {
+  margin: 10px 0 0;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-mist-400);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.trustFooter {
+  margin: 20px 0 0;
+  font-family: var(--font-body);
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--color-mist-300);
+}

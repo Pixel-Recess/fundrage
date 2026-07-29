@@ -1,53 +1,48 @@
-import { ScreenHeader } from '../../components/ScreenHeader';
 import { NavFooter } from '../../components/NavFooter';
+import { CloseIcon } from '../../components/icons/CloseIcon';
 import { TOPICS } from '../TopicSelection/topics';
-import { SOURCES } from '../SourceSelection/sources';
 import type { Article } from '../Feed/articles';
 import styles from './ArticleDetail.module.css';
 
 const TOPICS_BY_ID = new Map(TOPICS.map((topic) => [topic.id, topic]));
-const SOURCES_BY_ID = new Map(SOURCES.map((source) => [source.id, source]));
 
 export interface ArticleDetailProps {
   article: Article;
   onBack: () => void;
   onSeeNonprofits: () => void;
-  onOpenAccount: () => void;
 }
 
 /**
- * Fresh build — the Figma "News Article" frame (node 1:2) is just a full-bleed
- * screenshot image with no real layout underneath it, nothing to port.
+ * Modeled on Figma's "News-URL" modal-sheet frame (node 3015:2653) — a presented sheet
+ * previewing the source article, not a primary nav screen, so there's no ScreenHeader/profile
+ * icon here. We don't have real per-article webpage screenshots to embed, so the topic's own
+ * illustration stands in for the preview image, same mocking convention used elsewhere in the
+ * demo. "Read Article" stays disabled — no real article content/URL exists yet (Phase 2 per
+ * docs/fundrage-backend-spec.md §4.1–4.2), same convention as Donate's disabled website button.
  */
-export function ArticleDetail({ article, onBack, onSeeNonprofits, onOpenAccount }: ArticleDetailProps) {
+export function ArticleDetail({ article, onBack, onSeeNonprofits }: ArticleDetailProps) {
   const topic = TOPICS_BY_ID.get(article.topicId);
-  const source = SOURCES_BY_ID.get(article.sourceId);
 
   return (
     <div className={styles.screen}>
-      <ScreenHeader title="Article" onProfileClick={onOpenAccount} />
+      <div className={styles.grabber} aria-hidden="true" />
+      <div className={styles.sheetNav}>
+        <p className={styles.navTitle}>{article.headline}</p>
+        <button type="button" className={styles.closeButton} onClick={onBack} aria-label="Close">
+          <CloseIcon />
+        </button>
+      </div>
+      <div className={styles.navSpacer} aria-hidden="true" />
 
-      <div className={styles.content}>
-        {topic && <img className={styles.hero} src={topic.photo} alt="" aria-hidden="true" />}
-        {topic && <span className={styles.topicTag}>{topic.label}</span>}
-        <h1 className={styles.headline}>{article.headline}</h1>
-        <p className={styles.meta}>{source?.label ?? article.sourceId}</p>
-
-        <div className={styles.body}>
-          <p>
-            This is where the full article would appear — either fetched and rendered in-app, or
-            opened via an in-app browser view, depending on licensing/embedding terms with each
-            source.
-          </p>
-        </div>
-
-        <p className={styles.placeholderNote}>
-          Mock content — no real article ingestion/rendering exists yet (that's Phase 2 per
-          docs/fundrage-backend-spec.md §4.1–4.2).
-        </p>
+      <div className={styles.previewArea}>
+        {topic && <img className={styles.previewImage} src={topic.photo} alt="" aria-hidden="true" />}
+        <div className={styles.gradientOverlay} aria-hidden="true" />
+        <button type="button" className={styles.readArticleButton} disabled>
+          Read Article
+        </button>
       </div>
 
-      <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="See Nonprofits" />
+      <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled backLabel="Close" nextLabel="Find Causes" />
     </div>
   );
 }

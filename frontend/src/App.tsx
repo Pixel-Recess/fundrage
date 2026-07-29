@@ -14,6 +14,7 @@ import { Contact } from './screens/Contact/Contact';
 import { Receipts } from './screens/Receipts/Receipts';
 import { ReceiptDetail } from './screens/Receipts/ReceiptDetail';
 import { Donate } from './screens/Donate/Donate';
+import { EveryOrgCheckout } from './screens/Donate/EveryOrgCheckout';
 import { DonationSuccess } from './screens/Donate/DonationSuccess';
 import { ONBOARDING_STEPS } from './screens/Onboarding/onboardingSteps';
 import { DEFAULT_PROFILE } from './screens/Account/profile';
@@ -31,6 +32,14 @@ type Step =
   | { name: 'articleDetail'; topicIds: string[]; sourceIds: string[]; article: Article }
   | { name: 'nonprofits'; topicIds: string[]; sourceIds: string[]; article: Article }
   | { name: 'donate'; topicIds: string[]; sourceIds: string[]; article: Article; nonprofit: Nonprofit }
+  | {
+      name: 'everyOrgCheckout';
+      topicIds: string[];
+      sourceIds: string[];
+      article: Article;
+      nonprofit: Nonprofit;
+      amount: number;
+    }
   | {
       name: 'donationSuccess';
       topicIds: string[];
@@ -168,7 +177,6 @@ export function App() {
               article: step.article,
             })
           }
-          onOpenAccount={() => setStep({ name: 'account' })}
         />
       );
 
@@ -209,7 +217,34 @@ export function App() {
               article: step.article,
             })
           }
-          onNext={(amount) => {
+          onNext={(amount) =>
+            setStep({
+              name: 'everyOrgCheckout',
+              topicIds: step.topicIds,
+              sourceIds: step.sourceIds,
+              article: step.article,
+              nonprofit: step.nonprofit,
+              amount,
+            })
+          }
+        />
+      );
+
+    case 'everyOrgCheckout':
+      return (
+        <EveryOrgCheckout
+          nonprofit={step.nonprofit}
+          amount={step.amount}
+          onBack={() =>
+            setStep({
+              name: 'donate',
+              topicIds: step.topicIds,
+              sourceIds: step.sourceIds,
+              article: step.article,
+              nonprofit: step.nonprofit,
+            })
+          }
+          onConfirm={() => {
             // Mocked — the real charge happens on Every.org's side (Donate Link / Apple
             // Pay); this just records a receipt as if their webhook had already confirmed
             // it, since there's no real backend here to actually wait on (see Donate.tsx).
@@ -221,7 +256,7 @@ export function App() {
                 day: 'numeric',
                 year: 'numeric',
               }),
-              amount,
+              amount: step.amount,
               cardLabel: 'Mastercard ending in 4444',
               cardExpiry: '2/28',
             };
@@ -231,7 +266,7 @@ export function App() {
               topicIds: step.topicIds,
               sourceIds: step.sourceIds,
               nonprofit: step.nonprofit,
-              amount,
+              amount: step.amount,
             });
           }}
         />

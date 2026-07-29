@@ -26,6 +26,7 @@
 .amounts {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   /* Percentage gap is relative to .amounts' own width (bounded by .screen's
      max-width, capped per breakpoint below), not the full viewport — vw would
      blow up on desktop. */

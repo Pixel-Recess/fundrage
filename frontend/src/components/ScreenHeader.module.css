@@ -15,7 +15,7 @@
   /* Matches .header's total rendered height (its own top padding + .headerRow's height)
      so content isn't hidden underneath on first render, now that .header is fixed and no
      longer reserves this space in normal flow itself. */
-  height: calc(72px + max(20px, env(safe-area-inset-top)));
+  height: calc(60px + max(20px, env(safe-area-inset-top)));
   flex-shrink: 0;
 }
 
@@ -24,8 +24,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 72px;
-  padding: 0 20px 25px;
+  height: 60px;
+  padding: 0 20px 18px;
 }
 
 .title {
@@ -40,14 +40,14 @@
 .profileIcon {
   position: absolute;
   left: 20px;
-  bottom: 25px;
+  bottom: 18px;
   color: var(--color-white);
 }
 
 .leadingButton {
   position: absolute;
   left: 20px;
-  bottom: 25px;
+  bottom: 18px;
   display: flex;
   color: var(--color-white);
   background: none;

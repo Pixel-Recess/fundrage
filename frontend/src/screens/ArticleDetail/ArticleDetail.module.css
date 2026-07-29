@@ -6,68 +6,112 @@
   width: 100%;
   margin: 0 auto;
   background: var(--color-white);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
-  padding-bottom: 100px;
-}
-
-.hero {
-  width: 100%;
-  aspect-ratio: 350 / 200;
-  object-fit: cover;
-  border-radius: 3px;
-}
-
-.topicTag {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 2px 8px;
+.grabber {
+  position: fixed;
+  top: max(8px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 5px;
   border-radius: 100px;
-  background: var(--color-aqua-100);
-  color: var(--color-aqua-500);
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  width: fit-content;
+  background: var(--color-mist-200);
+  z-index: 3;
 }
 
-.headline {
-  margin: 12px 0 4px;
+.sheetNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: calc(20px + env(safe-area-inset-top)) 16px 10px;
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.navTitle {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-family: var(--font-display);
-  font-size: 25px;
-  line-height: 1.2;
-  color: var(--color-navy-500);
-}
-
-.meta {
-  margin: 0 0 20px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: var(--color-mist-400);
-}
-
-.body {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
+  font-weight: 600;
+  font-size: 15px;
   color: var(--color-black);
+  text-align: center;
 }
 
-.body p {
-  margin: 0 0 16px;
+.closeButton {
+  flex-shrink: 0;
+  display: flex;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-aqua-300);
+  cursor: pointer;
 }
 
-.placeholderNote {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 3px;
+.navSpacer {
+  /* Matches .sheetNav's total rendered height (top/bottom padding + the 22px close
+     icon, the tallest row content) so the preview area doesn't start underneath it,
+     now that the nav is fixed and out of flow. */
+  height: calc(52px + env(safe-area-inset-top));
+  flex-shrink: 0;
+}
+
+.previewArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
   background: var(--color-mist-100);
+}
+
+.previewImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.readArticleButton {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 36px;
+  border-radius: 3px;
+  border: 1px solid var(--color-mist-200);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--color-white);
   font-family: var(--font-body);
+  font-weight: 800;
   font-size: 12px;
-  color: var(--color-mist-400);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: not-allowed;
+  white-space: nowrap;
 }
