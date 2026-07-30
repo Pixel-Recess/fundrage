@@ -77,6 +77,32 @@
   color: var(--color-navy-500);
 }
 
+.skeletonLine {
+  border-radius: 4px;
+  background: var(--color-mist-100);
+  animation: skeletonPulse 1.4s ease-in-out infinite;
+}
+
+.skeletonName {
+  width: 60%;
+  height: 18px;
+}
+
+.skeletonDescription {
+  width: 90%;
+  height: 12px;
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .empty {
   font-family: var(--font-body);
   font-size: 0.875rem;

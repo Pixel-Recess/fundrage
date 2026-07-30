@@ -14,19 +14,45 @@ export interface FeedProps {
   onOpenAccount: () => void;
 }
 
+function FeedSkeleton() {
+  return (
+    <>
+      <p className={styles.sectionHeader}>Loading...</p>
+      {[0, 1, 2].map((i) => (
+        <div className={styles.card} key={i}>
+          <div className={styles.skeletonThumb} aria-hidden="true" />
+          <div className={styles.cardBody}>
+            <div className={`${styles.skeletonLine} ${styles.skeletonTitle}`} />
+            <div className={`${styles.skeletonLine} ${styles.skeletonDate}`} />
+            <div className={`${styles.skeletonLine} ${styles.skeletonText}`} />
+            <div className={`${styles.skeletonLine} ${styles.skeletonPill}`} />
+          </div>
+          <span className={styles.chevron} aria-hidden="true">
+            ›
+          </span>
+        </div>
+      ))}
+    </>
+  );
+}
+
 /**
  * Tries the real /dev/news endpoint first (real RSS headlines/summaries — see
- * src/routes/live.ts on the backend); falls back to the local ARTICLES mock on any failure
- * (no VITE_API_BASE_URL configured, network error, etc.) so the demo never goes blank. A live
- * article can match more than one selected topic (matchedTopics), so it's fanned out into one
- * card per matched section, same as how a real Ground-News-style feed would surface it under
- * each topic the reader cares about.
+ * src/routes/live.ts on the backend). Shows a skeleton loading state (matching Figma's
+ * "News-Loading" frame, node 3041:1692) while the request is in flight, instead of flashing
+ * the mock ARTICLES before swapping to live data. Falls back to the mock list only if the
+ * live fetch actually fails (no VITE_API_BASE_URL configured, network error, etc.), so the
+ * demo never goes blank. A live article can match more than one selected topic
+ * (matchedTopics), so it's fanned out into one card per matched section, same as how a real
+ * Ground-News-style feed would surface it under each topic the reader cares about.
  */
 export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedProps) {
-  const [liveArticles, setLiveArticles] = useState<Article[] | null>(null);
+  const [status, setStatus] = useState<'loading' | 'live' | 'mock'>('loading');
+  const [liveArticles, setLiveArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     let cancelled = false;
+    setStatus('loading');
     fetchLiveNews(selectedTopicIds)
       .then((liveResults) => {
         if (cancelled) return;
@@ -45,16 +71,17 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
           })),
         );
         setLiveArticles(fannedOut);
+        setStatus('live');
       })
       .catch(() => {
-        if (!cancelled) setLiveArticles(null);
+        if (!cancelled) setStatus('mock');
       });
     return () => {
       cancelled = true;
     };
   }, [selectedTopicIds]);
 
-  const articles = liveArticles ?? ARTICLES;
+  const articles = status === 'live' ? liveArticles : ARTICLES;
   const topicIds = new Set(selectedTopicIds);
   // Filtered by topic only — source selection isn't a display filter here since
   // in the real backend, source_slugs describe where ingestion detects a story,
@@ -75,52 +102,58 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
       <ScreenHeader title="Your Feed" onProfileClick={onOpenAccount} />
 
       <div className={styles.list} role="feed" aria-label="Your personalized feed">
-        {liveArticles && (
-          <p className={styles.liveBadge}>Showing real headlines — experimental, see CLAUDE.md</p>
+        {status === 'loading' ? (
+          <FeedSkeleton />
+        ) : (
+          <>
+            {status === 'live' && (
+              <p className={styles.liveBadge}>Showing real headlines — experimental, see CLAUDE.md</p>
+            )}
+            {sections.length === 0 && (
+              <p className={styles.empty}>No matching stories yet for the topics you picked.</p>
+            )}
+            {sections.map((topic) => (
+              <div className={styles.section} key={topic.id}>
+                <p className={styles.sectionHeader}>{topic.label}</p>
+                {articlesByTopic.get(topic.id)!.map((article) => {
+                  const source = SOURCES_BY_ID.get(article.sourceId);
+                  return (
+                    <button
+                      type="button"
+                      className={styles.card}
+                      key={article.id}
+                      onClick={() => onSelectArticle(article)}
+                    >
+                      <img
+                        className={styles.thumb}
+                        src={article.thumbnailUrl ?? topic.photo}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      <div className={styles.cardBody}>
+                        <p className={styles.headline}>{article.headline}</p>
+                        {article.publishedAt && (
+                          <p className={styles.dateLabel}>
+                            {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                              month: 'long',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </p>
+                        )}
+                        <p className={styles.preview}>{article.preview}</p>
+                        <span className={styles.sourcePill}>{source?.label ?? article.sourceId}</span>
+                      </div>
+                      <span className={styles.chevron} aria-hidden="true">
+                        ›
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </>
         )}
-        {sections.length === 0 && (
-          <p className={styles.empty}>No matching stories yet for the topics you picked.</p>
-        )}
-        {sections.map((topic) => (
-          <div className={styles.section} key={topic.id}>
-            <p className={styles.sectionHeader}>{topic.label}</p>
-            {articlesByTopic.get(topic.id)!.map((article) => {
-              const source = SOURCES_BY_ID.get(article.sourceId);
-              return (
-                <button
-                  type="button"
-                  className={styles.card}
-                  key={article.id}
-                  onClick={() => onSelectArticle(article)}
-                >
-                  <img
-                    className={styles.thumb}
-                    src={article.thumbnailUrl ?? topic.photo}
-                    alt=""
-                    aria-hidden="true"
-                  />
-                  <div className={styles.cardBody}>
-                    <p className={styles.headline}>{article.headline}</p>
-                    {article.publishedAt && (
-                      <p className={styles.dateLabel}>
-                        {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                          month: 'long',
-                          day: 'numeric',
-                          year: 'numeric',
-                        })}
-                      </p>
-                    )}
-                    <p className={styles.preview}>{article.preview}</p>
-                    <span className={styles.sourcePill}>{source?.label ?? article.sourceId}</span>
-                  </div>
-                  <span className={styles.chevron} aria-hidden="true">
-                    ›
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        ))}
       </div>
     </div>
   );

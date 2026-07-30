@@ -132,3 +132,52 @@
   color: var(--color-navy-500);
   font-size: 1.125rem;
 }
+
+.skeletonThumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+  background: var(--color-mist-100);
+  flex-shrink: 0;
+  animation: skeletonPulse 1.4s ease-in-out infinite;
+}
+
+.skeletonLine {
+  border-radius: 4px;
+  background: var(--color-mist-100);
+  animation: skeletonPulse 1.4s ease-in-out infinite;
+}
+
+.skeletonTitle {
+  width: 70%;
+  height: 16px;
+  margin-bottom: 6px;
+}
+
+.skeletonDate {
+  width: 40%;
+  height: 10px;
+  margin-bottom: 10px;
+}
+
+.skeletonText {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.skeletonPill {
+  width: 35%;
+  height: 18px;
+  border-radius: 100px;
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
