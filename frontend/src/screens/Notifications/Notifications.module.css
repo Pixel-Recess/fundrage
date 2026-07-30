@@ -18,7 +18,7 @@
   margin: 24px 0 4px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--color-rage-200);
 }
 
@@ -42,7 +42,7 @@
 
 .rowLabel {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--color-black);
 }
 
@@ -99,7 +99,7 @@
   border-radius: 3px;
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;

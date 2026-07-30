@@ -20,7 +20,7 @@
   margin: 0;
   max-width: 350px;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 18px;
   color: var(--color-navy-500);
   text-align: center;
@@ -47,7 +47,7 @@
 .headline {
   margin: 40px 0 0;
   font-family: var(--font-body);
-  font-size: 30px;
+  font-size: 1.875rem;
   line-height: 1.2;
   color: var(--color-rage-200);
   text-align: center;

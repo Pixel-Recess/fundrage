@@ -29,13 +29,13 @@
   color: var(--color-navy-500);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 9px;
+  font-size: 0.5625rem;
   text-transform: uppercase;
 }
 
 .dateLabel {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--color-mist-400);
 }
 
@@ -52,14 +52,14 @@
   margin: 0 0 16px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 1.25;
   color: var(--color-navy-500);
 }
 
 .body {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.7;
   color: var(--color-black);
 }
@@ -75,7 +75,7 @@
   background: var(--color-purple-100);
   color: var(--color-navy-500);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 0.6875rem;
   line-height: 1.5;
 }
 
@@ -85,6 +85,6 @@
   color: var(--color-aqua-500);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 12px;
+  font-size: 0.75rem;
   text-decoration: none;
 }

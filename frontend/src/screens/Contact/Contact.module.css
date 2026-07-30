@@ -18,7 +18,7 @@
   margin: 0 0 8px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--color-rage-200);
 }
 
@@ -51,7 +51,7 @@
 
 .rowLabel {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--color-black);
 }
 
@@ -63,7 +63,7 @@
 
 .fieldCaption {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-black);
 }
 
@@ -75,7 +75,7 @@
   border: 1px solid var(--color-mist-200);
   background: rgba(209, 212, 224, 0.15);
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-black);
   resize: none;
   box-sizing: border-box;
@@ -108,14 +108,14 @@
   margin: 19px 16px 2px;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: rgba(0, 0, 0, 0.96);
 }
 
 .toastBody {
   margin: 0 16px 17px;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: rgba(0, 0, 0, 0.5);
   border-bottom: 1px solid var(--color-mist-200);
   padding-bottom: 17px;
@@ -127,7 +127,7 @@
   background: none;
   border: none;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: #007aff;
   cursor: pointer;
 }

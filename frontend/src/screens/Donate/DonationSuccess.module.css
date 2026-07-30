@@ -36,7 +36,7 @@
 .headline {
   margin: 40px 0 0;
   font-family: var(--font-body);
-  font-size: 30px;
+  font-size: 1.875rem;
   line-height: 1.2;
   color: var(--color-rage-200);
   text-align: center;
@@ -46,7 +46,7 @@
   margin: 20px 0 0;
   max-width: 330px;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 22px;
   color: var(--color-navy-500);
   text-align: center;
@@ -76,7 +76,7 @@
   color: var(--color-navy-500);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;

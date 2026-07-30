@@ -32,7 +32,8 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: 24px;
+  font-size: 1.875rem;
+  line-height: 36px;
   color: var(--color-white);
   text-align: center;
 }

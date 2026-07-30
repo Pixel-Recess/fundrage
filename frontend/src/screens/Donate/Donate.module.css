@@ -18,7 +18,7 @@
   margin: 0 0 20px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--color-rage-200);
   text-align: center;
 }
@@ -46,7 +46,7 @@
   background: var(--color-mist-100);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(24px, 9vw, 36px);
+  font-size: clamp(1.5rem, 9vw, 2.25rem);
   color: var(--color-aqua-200);
   cursor: pointer;
 }
@@ -85,7 +85,7 @@
 
 .fieldLabel {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-black);
 }
 
@@ -105,7 +105,7 @@
 .dollarSign {
   flex-shrink: 0;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-black);
 }
 
@@ -117,7 +117,7 @@
   border: none;
   background: none;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-black);
   -moz-appearance: textfield;
 }
@@ -136,7 +136,7 @@
   margin: 0 0 8px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--color-navy-500);
   text-align: center;
 }
@@ -150,7 +150,7 @@
 .ratingCaption {
   margin: 0 0 8px;
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-navy-500);
   text-align: center;
 }
@@ -171,14 +171,14 @@
 .ratingPercent {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 36px;
+  font-size: 2.25rem;
   color: var(--color-mist-500);
 }
 
 .detailsBody {
   margin: 0 0 16px;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 18px;
   color: var(--color-navy-500);
   text-align: center;
@@ -197,7 +197,7 @@
   color: var(--color-white);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 15px;
+  font-size: 0.9375rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   cursor: not-allowed;

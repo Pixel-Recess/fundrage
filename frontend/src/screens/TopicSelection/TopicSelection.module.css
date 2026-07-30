@@ -100,7 +100,7 @@
 .label {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-navy-500);
   text-align: center;
 }

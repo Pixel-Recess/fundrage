@@ -43,19 +43,34 @@ export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits 
             </span>
           )}
         </div>
-        <button type="button" className={styles.card} onClick={onReadArticle}>
-          {(article.thumbnailUrl ?? topic?.photo) && (
-            <img
-              className={styles.thumb}
-              src={article.thumbnailUrl ?? topic?.photo}
-              alt=""
-              aria-hidden="true"
-            />
+        <div className={styles.card}>
+          <button type="button" className={styles.cardMain} onClick={onReadArticle}>
+            {(article.thumbnailUrl ?? topic?.photo) && (
+              <img
+                className={styles.thumb}
+                src={article.thumbnailUrl ?? topic?.photo}
+                alt=""
+                aria-hidden="true"
+              />
+            )}
+            <h1 className={styles.headline}>{article.headline}</h1>
+            <p className={styles.summary}>{article.preview}</p>
+          </button>
+          {article.live && article.canonicalUrl ? (
+            <a
+              className={styles.readArticleBadge}
+              href={article.canonicalUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read Article ↗
+            </a>
+          ) : (
+            <button type="button" className={styles.readArticleBadge} onClick={onReadArticle}>
+              Read Article
+            </button>
           )}
-          <h1 className={styles.headline}>{article.headline}</h1>
-          <p className={styles.summary}>{article.preview}</p>
-          <span className={styles.readArticleBadge}>Read Article</span>
-        </button>
+        </div>
       </div>
 
       <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled backLabel="Close" nextLabel="Find Causes" />
