@@ -14,10 +14,14 @@ export interface NonprofitsFromArticleProps {
 function NonprofitsSkeleton() {
   return (
     <>
+      <p className={styles.sectionHeader}>Loading...</p>
       {[0, 1, 2].map((i) => (
         <div className={styles.row} key={i}>
           <div className={styles.rowText}>
-            <div className={`${styles.skeletonLine} ${styles.skeletonName}`} />
+            <div className={styles.skeletonTitleGroup}>
+              <div className={`${styles.skeletonLine} ${styles.skeletonName}`} />
+              <div className={`${styles.skeletonLine} ${styles.skeletonNameSecond}`} />
+            </div>
             <div className={`${styles.skeletonLine} ${styles.skeletonDescription}`} />
           </div>
           <span className={styles.chevron} aria-hidden="true">

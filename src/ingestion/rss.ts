@@ -15,8 +15,10 @@ export interface RssItem {
   /** Standard RSS 2.0 media attachment — most reliable image source when present. */
   enclosure?: { url?: string };
   /** media:content / media:thumbnail (Media RSS extension) — common on news feeds that don't
-   * use <enclosure> for images. Parsed via rss-parser's customFields option below. */
-  mediaContent?: { $?: { url?: string } } | { $?: { url?: string } }[];
+   * use <enclosure> for images. Parsed via rss-parser's customFields option below. Some feeds
+   * (e.g. the Guardian) repeat media:content once per available size (140/460/700px, etc.) —
+   * keepArray ensures all of them are captured, not just the first (smallest). */
+  mediaContent?: { $?: { url?: string; width?: string } }[];
   mediaThumbnail?: { $?: { url?: string } };
 }
 
@@ -25,7 +27,7 @@ export type ParseFeed = (url: string) => Promise<RssItem[]>;
 const defaultParser = new Parser({
   customFields: {
     item: [
-      ["media:content", "mediaContent"],
+      ["media:content", "mediaContent", { keepArray: true }],
       ["media:thumbnail", "mediaThumbnail"],
     ],
   },
@@ -55,13 +57,21 @@ function parseItemSummary(item: RssItem): string | undefined {
   return text.length > 280 ? `${text.slice(0, 280).trimEnd()}…` : text;
 }
 
-/** Checks <enclosure>, then media:content, then media:thumbnail — whichever the feed has. */
+/**
+ * Checks <enclosure>, then the largest media:content by width (feeds like the Guardian list
+ * several sizes — the first one isn't necessarily the biggest), then media:thumbnail.
+ */
 function parseItemImage(item: RssItem): string | undefined {
   if (item.enclosure?.url) return item.enclosure.url;
-  const media = Array.isArray(item.mediaContent)
-    ? item.mediaContent[0]
-    : item.mediaContent;
-  if (media?.$?.url) return media.$.url;
+  const mediaList = item.mediaContent ?? [];
+  const largest = mediaList.reduce<
+    { $?: { url?: string; width?: string } } | undefined
+  >((best, current) => {
+    const bestWidth = Number(best?.$?.width ?? -1);
+    const currentWidth = Number(current?.$?.width ?? -1);
+    return currentWidth > bestWidth ? current : best;
+  }, undefined);
+  if (largest?.$?.url) return largest.$.url;
   if (item.mediaThumbnail?.$?.url) return item.mediaThumbnail.$.url;
   return undefined;
 }

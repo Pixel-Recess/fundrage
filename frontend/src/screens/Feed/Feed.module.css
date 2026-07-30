@@ -175,9 +175,9 @@
 @keyframes skeletonPulse {
   0%,
   100% {
-    opacity: 1;
+    background-color: var(--color-mist-100);
   }
   50% {
-    opacity: 0.5;
+    background-color: var(--color-mist-200);
   }
 }

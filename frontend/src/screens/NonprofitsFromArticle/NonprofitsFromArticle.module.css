@@ -77,6 +77,19 @@
   color: var(--color-navy-500);
 }
 
+.sectionHeader {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--color-rage-200);
+}
+
+.skeletonTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .skeletonLine {
   border-radius: 4px;
   background: var(--color-mist-100);
@@ -88,18 +101,23 @@
   height: 18px;
 }
 
+.skeletonNameSecond {
+  width: 35%;
+  height: 12px;
+}
+
 .skeletonDescription {
   width: 90%;
-  height: 12px;
+  height: 15px;
 }
 
 @keyframes skeletonPulse {
   0%,
   100% {
-    opacity: 1;
+    background-color: var(--color-mist-100);
   }
   50% {
-    opacity: 0.5;
+    background-color: var(--color-mist-200);
   }
 }
 

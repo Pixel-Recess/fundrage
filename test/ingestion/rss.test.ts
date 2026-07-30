@@ -134,13 +134,21 @@ describe("fetchRssCandidates", () => {
         title: "A",
         link: "https://a.example.com/1",
         enclosure: { url: "https://a.example.com/enclosure.jpg" },
-        mediaContent: { $: { url: "https://a.example.com/media-content.jpg" } },
+        mediaContent: [
+          {
+            $: { url: "https://a.example.com/media-content.jpg", width: "700" },
+          },
+        ],
         mediaThumbnail: { $: { url: "https://a.example.com/media-thumb.jpg" } },
       },
       {
         title: "B",
         link: "https://a.example.com/2",
-        mediaContent: { $: { url: "https://a.example.com/media-content.jpg" } },
+        mediaContent: [
+          {
+            $: { url: "https://a.example.com/media-content.jpg", width: "700" },
+          },
+        ],
         mediaThumbnail: { $: { url: "https://a.example.com/media-thumb.jpg" } },
       },
       {
@@ -165,18 +173,19 @@ describe("fetchRssCandidates", () => {
     ).toBeUndefined();
   });
 
-  it("handles media:content as an array (multiple sizes) by using the first", async () => {
+  it("picks the largest media:content by width when a feed lists several sizes", async () => {
     const parseFeed: ParseFeed = async () => [
       {
         title: "A",
         link: "https://a.example.com/1",
         mediaContent: [
-          { $: { url: "https://a.example.com/large.jpg" } },
-          { $: { url: "https://a.example.com/small.jpg" } },
+          { $: { url: "https://a.example.com/w140.jpg", width: "140" } },
+          { $: { url: "https://a.example.com/w700.jpg", width: "700" } },
+          { $: { url: "https://a.example.com/w460.jpg", width: "460" } },
         ],
       },
     ];
     const candidates = await fetchRssCandidates([feedA], parseFeed);
-    expect(candidates[0]?.imageUrl).toBe("https://a.example.com/large.jpg");
+    expect(candidates[0]?.imageUrl).toBe("https://a.example.com/w700.jpg");
   });
 });
