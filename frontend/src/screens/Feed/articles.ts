@@ -9,6 +9,10 @@ export interface Article {
   body: string[];
   topicId: string;
   sourceId: string;
+  /** Set when this article came from the real /dev/news endpoint instead of this mock list —
+   * ArticleReader shows a "read the real thing" link instead of the mock body paragraphs. */
+  live?: boolean;
+  canonicalUrl?: string;
 }
 
 /**

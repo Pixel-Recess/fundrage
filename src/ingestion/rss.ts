@@ -8,6 +8,10 @@ export interface RssItem {
   link?: string;
   isoDate?: string;
   pubDate?: string;
+  /** rss-parser exposes whichever of these the source feed provides — checked in order. */
+  contentSnippet?: string;
+  summary?: string;
+  content?: string;
 }
 
 export type ParseFeed = (url: string) => Promise<RssItem[]>;
@@ -24,6 +28,18 @@ function parseItemDate(item: RssItem): Date {
   if (!raw) return new Date();
   const parsed = new Date(raw);
   return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+}
+
+/** Some feeds put raw HTML in contentSnippet/summary/content — strip tags and trim length. */
+function parseItemSummary(item: RssItem): string | undefined {
+  const raw = item.contentSnippet ?? item.summary ?? item.content;
+  if (!raw) return undefined;
+  const text = raw
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return undefined;
+  return text.length > 280 ? `${text.slice(0, 280).trimEnd()}…` : text;
 }
 
 /**
@@ -53,6 +69,7 @@ export async function fetchRssCandidates(
         canonicalUrl: item.link,
         sourceSlug: feed.slug,
         publishedAt: parseItemDate(item),
+        summary: parseItemSummary(item),
       });
     }
   }

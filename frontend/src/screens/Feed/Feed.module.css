@@ -23,6 +23,17 @@
   margin-top: 40px;
 }
 
+.liveBadge {
+  margin: 20px 0 0;
+  padding: 6px 10px;
+  border-radius: 3px;
+  background: var(--color-purple-100);
+  color: var(--color-navy-500);
+  font-family: var(--font-body);
+  font-size: 10px;
+  text-align: center;
+}
+
 .section {
   display: flex;
   flex-direction: column;

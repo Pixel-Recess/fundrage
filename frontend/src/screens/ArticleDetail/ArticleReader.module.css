@@ -55,3 +55,24 @@
 .body p {
   margin: 0 0 16px;
 }
+
+.liveNote {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 3px;
+  background: var(--color-purple-100);
+  color: var(--color-navy-500);
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.originalLink {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--color-aqua-500);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 12px;
+  text-decoration: none;
+}

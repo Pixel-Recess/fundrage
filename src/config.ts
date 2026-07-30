@@ -15,6 +15,8 @@ export interface Config {
     gdeltQuery: string;
     dedupeTtlHours: number;
   };
+  everyOrgApiKey?: string | undefined;
+  frontendOrigin: string;
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
@@ -46,5 +48,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       gdeltQuery: env.GDELT_QUERY ?? "sourcelang:english",
       dedupeTtlHours: Number(env.INGESTION_DEDUPE_TTL_HOURS ?? 48),
     },
+    everyOrgApiKey: env.EVERY_ORG_API_KEY || undefined,
+    frontendOrigin: env.FRONTEND_ORIGIN ?? "http://localhost:5173",
   };
 }

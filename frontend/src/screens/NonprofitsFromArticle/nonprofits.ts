@@ -3,6 +3,9 @@ export interface Nonprofit {
   name: string;
   description: string;
   topicIds: string[];
+  /** Set when this came from the real Every.org search API instead of this mock list — the
+   * Charity Navigator rating shown alongside it is NOT independently verified in that case. */
+  live?: boolean;
 }
 
 /**

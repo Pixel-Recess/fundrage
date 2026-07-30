@@ -75,4 +75,56 @@ describe("fetchRssCandidates", () => {
       candidates.find((c) => c.headline === "Story")?.publishedAt.getTime(),
     ).toBeGreaterThanOrEqual(before);
   });
+
+  it("prefers contentSnippet, then summary, then content for the summary field", async () => {
+    const parseFeed: ParseFeed = async () => [
+      {
+        title: "A",
+        link: "https://a.example.com/1",
+        contentSnippet: "from snippet",
+        summary: "from summary",
+        content: "from content",
+      },
+      {
+        title: "B",
+        link: "https://a.example.com/2",
+        summary: "from summary",
+        content: "from content",
+      },
+      { title: "C", link: "https://a.example.com/3", content: "from content" },
+    ];
+    const candidates = await fetchRssCandidates([feedA], parseFeed);
+    expect(candidates.find((c) => c.headline === "A")?.summary).toBe(
+      "from snippet",
+    );
+    expect(candidates.find((c) => c.headline === "B")?.summary).toBe(
+      "from summary",
+    );
+    expect(candidates.find((c) => c.headline === "C")?.summary).toBe(
+      "from content",
+    );
+  });
+
+  it("strips HTML tags and truncates a long summary", async () => {
+    const parseFeed: ParseFeed = async () => [
+      {
+        title: "A",
+        link: "https://a.example.com/1",
+        contentSnippet: `<p>${"word ".repeat(100)}</p>`,
+      },
+    ];
+    const candidates = await fetchRssCandidates([feedA], parseFeed);
+    const summary = candidates[0]?.summary ?? "";
+    expect(summary).not.toContain("<p>");
+    expect(summary.length).toBeLessThanOrEqual(281);
+    expect(summary.endsWith("…")).toBe(true);
+  });
+
+  it("leaves summary undefined when the feed provides none", async () => {
+    const parseFeed: ParseFeed = async () => [
+      { title: "A", link: "https://a.example.com/1" },
+    ];
+    const candidates = await fetchRssCandidates([feedA], parseFeed);
+    expect(candidates[0]?.summary).toBeUndefined();
+  });
 });

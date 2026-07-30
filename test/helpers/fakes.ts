@@ -46,6 +46,7 @@ export function testConfig() {
       gdeltQuery: "sourcelang:english",
       dedupeTtlHours: 48,
     },
+    frontendOrigin: "http://localhost:5173",
   };
 }
 

@@ -15,9 +15,12 @@ export interface ArticleReaderProps {
 }
 
 /**
- * The full in-app read view reached by tapping through from ArticleDetail's preview card —
- * mock body text only, no real article ingestion/rendering yet (Phase 2 per
- * docs/fundrage-backend-spec.md §4.1–4.2).
+ * The full in-app read view reached by tapping through from ArticleDetail's preview card. For
+ * mock articles this shows placeholder body text — no real ingestion/rendering yet (Phase 2 per
+ * docs/fundrage-backend-spec.md §4.1–4.2). For real articles fetched from /dev/news, only a real
+ * headline/summary exists (RSS feeds don't provide full body text, and scraping publisher pages
+ * to fake it isn't something CLAUDE.md wants coded around) — so instead of fake paragraphs, this
+ * shows the real summary plus a real link to the original article.
  */
 export function ArticleReader({ article, onBack, onSeeNonprofits }: ArticleReaderProps) {
   const topic = TOPICS_BY_ID.get(article.topicId);
@@ -31,11 +34,33 @@ export function ArticleReader({ article, onBack, onSeeNonprofits }: ArticleReade
         {source && <span className={styles.sourcePill}>{source.label}</span>}
         {topic && <img className={styles.thumb} src={topic.photo} alt="" aria-hidden="true" />}
         <h1 className={styles.headline}>{article.headline}</h1>
-        <div className={styles.body}>
-          {article.body.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </div>
+        {article.live ? (
+          <>
+            <p className={styles.liveNote}>
+              This is a real headline and summary — full article text isn’t part of this demo
+              (that requires real licensed ingestion, Phase 2). Read the original below.
+            </p>
+            <div className={styles.body}>
+              <p>{article.preview}</p>
+            </div>
+            {article.canonicalUrl && (
+              <a
+                className={styles.originalLink}
+                href={article.canonicalUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read original article ↗
+              </a>
+            )}
+          </>
+        ) : (
+          <div className={styles.body}>
+            {article.body.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
+        )}
       </div>
 
       <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="Find Causes" />

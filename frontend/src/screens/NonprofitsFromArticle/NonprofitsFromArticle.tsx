@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { ScreenHeader } from '../../components/ScreenHeader';
 import { getNonprofitsForTopic, type Nonprofit } from './nonprofits';
+import { fetchLiveCharities } from '../../api';
 import styles from './NonprofitsFromArticle.module.css';
 
 export interface NonprofitsFromArticleProps {
@@ -15,6 +17,11 @@ export interface NonprofitsFromArticleProps {
  * nonprofit is real functionality that doesn't exist yet), and the alert copy
  * is rewritten to match the actual spec threshold (Charity Navigator >= 75,
  * not "3-stars") since that's the real non-negotiable filter (spec §4.4).
+ *
+ * Tries the real /dev/charities endpoint first (real nonprofit names from Every.org's public
+ * search API — see src/routes/live.ts on the backend); falls back to the local mock list on
+ * any failure. Real results are NOT independently checked against Charity Navigator's ≥75
+ * threshold in this demo — the alert copy is adjusted to say so when live data is showing.
  */
 export function NonprofitsFromArticle({
   topicId,
@@ -22,7 +29,32 @@ export function NonprofitsFromArticle({
   onSelectNonprofit,
   onOpenAccount,
 }: NonprofitsFromArticleProps) {
-  const nonprofits = getNonprofitsForTopic(topicId);
+  const [liveNonprofits, setLiveNonprofits] = useState<Nonprofit[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchLiveCharities(topicId)
+      .then((liveResults) => {
+        if (cancelled) return;
+        setLiveNonprofits(
+          liveResults.map((live) => ({
+            id: live.id,
+            name: live.name,
+            description: live.description,
+            topicIds: [topicId],
+            live: true,
+          })),
+        );
+      })
+      .catch(() => {
+        if (!cancelled) setLiveNonprofits(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [topicId]);
+
+  const nonprofits = liveNonprofits ?? getNonprofitsForTopic(topicId);
 
   return (
     <div className={styles.screen}>
@@ -30,8 +62,9 @@ export function NonprofitsFromArticle({
 
       <div className={styles.content}>
         <p className={styles.alert}>
-          FundRage only suggests 501(c)(3) nonprofits rated 75+ on Charity Navigator and verified
-          for Apple Pay eligibility.
+          {liveNonprofits
+            ? 'Real 501(c)(3) nonprofits from Every.org — Charity Navigator rating isn’t independently verified in this demo.'
+            : 'FundRage only suggests 501(c)(3) nonprofits rated 75+ on Charity Navigator and verified for Apple Pay eligibility.'}
         </p>
 
         <div className={styles.list} role="list" aria-label="Matched nonprofits">
