@@ -1,5 +1,6 @@
 import { ScreenHeader } from '../../components/ScreenHeader';
 import { NavFooter } from '../../components/NavFooter';
+import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
 import { TOPICS } from '../TopicSelection/topics';
 import { SOURCES } from '../SourceSelection/sources';
 import type { Article } from '../Feed/articles';
@@ -69,7 +70,8 @@ export function ArticleReader({ article, onBack, onSeeNonprofits }: ArticleReade
                 target="_blank"
                 rel="noreferrer"
               >
-                Read original article ↗
+                Read original article
+                <OpenInNewIcon size={14} />
               </a>
             )}
           </>

@@ -1,4 +1,5 @@
 import { NavFooter } from '../../components/NavFooter';
+import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
 import { TOPICS } from '../TopicSelection/topics';
 import { SOURCES } from '../SourceSelection/sources';
 import type { Article } from '../Feed/articles';
@@ -63,7 +64,8 @@ export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits 
               target="_blank"
               rel="noreferrer"
             >
-              Read Article ↗
+              Read Article
+              <OpenInNewIcon size={14} />
             </a>
           ) : (
             <button type="button" className={styles.readArticleBadge} onClick={onReadArticle}>

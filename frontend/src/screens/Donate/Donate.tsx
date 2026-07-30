@@ -105,7 +105,7 @@ export function Donate({ nonprofit, onBack, onNext }: DonateProps) {
               Agreement rows on Account, which are also non-functional external links. */}
           <button type="button" className={styles.websiteButton} disabled>
             Visit Website
-            <OpenInNewIcon size={16} />
+            <OpenInNewIcon size={12} />
           </button>
         </div>
       </div>

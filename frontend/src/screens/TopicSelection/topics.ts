@@ -1,18 +1,18 @@
-import animalRights from '../../assets/photos/topics/animal-rights.png';
-import disasterRelief from '../../assets/photos/topics/disaster-relief.png';
-import domesticViolence from '../../assets/photos/topics/domestic-violence.png';
-import education from '../../assets/photos/topics/education.png';
-import environment from '../../assets/photos/topics/environment.png';
-import equalPay from '../../assets/photos/topics/equal-pay.png';
-import gunControl from '../../assets/photos/topics/gun-control.png';
-import housing from '../../assets/photos/topics/housing.png';
-import immigration from '../../assets/photos/topics/immigration.png';
-import lgbtq from '../../assets/photos/topics/lgbtq.png';
-import medicalDiseases from '../../assets/photos/topics/medical-diseases.png';
-import mentalHealth from '../../assets/photos/topics/mental-health.png';
-import poverty from '../../assets/photos/topics/poverty.png';
-import racialJustice from '../../assets/photos/topics/racial-justice.png';
-import refugees from '../../assets/photos/topics/refugees.png';
+import animalRights from '../../assets/photos/topics/animal-rights.jpg';
+import disasterRelief from '../../assets/photos/topics/disaster-relief.jpg';
+import domesticViolence from '../../assets/photos/topics/domestic-violence.jpg';
+import education from '../../assets/photos/topics/education.jpg';
+import environment from '../../assets/photos/topics/environment.jpg';
+import equalPay from '../../assets/photos/topics/equal-pay.jpg';
+import gunControl from '../../assets/photos/topics/gun-control.jpg';
+import housing from '../../assets/photos/topics/housing.jpg';
+import immigration from '../../assets/photos/topics/immigration.jpg';
+import lgbtq from '../../assets/photos/topics/lgbtq.jpg';
+import medicalDiseases from '../../assets/photos/topics/medical-diseases.jpg';
+import mentalHealth from '../../assets/photos/topics/mental-health.jpg';
+import poverty from '../../assets/photos/topics/poverty.jpg';
+import racialJustice from '../../assets/photos/topics/racial-justice.jpg';
+import refugees from '../../assets/photos/topics/refugees.jpg';
 import socialJustice from '../../assets/photos/topics/social-justice.jpg';
 import veterans from '../../assets/photos/topics/veterans.jpg';
 import votingRights from '../../assets/photos/topics/voting-rights.jpg';
@@ -27,14 +27,19 @@ export interface Topic {
 
 /**
  * Mirrors the "Topics-Option_Photos" / "Topics-Option_Photos-Selcted" Figma frames
- * 1:1 (labels, order, photos). Every topic now has its own distinct photo — the
- * earlier "Equal Pay reuses Disaster Relief" / "Refugees reuses Medical Diseases"
- * findings turned out to be a bug in how the Figma MCP tool resolved shared
- * variable names across nodes, not an actual repeat in the design (confirmed by
- * pulling each node's rendered composite directly instead of trusting the
- * aggregated code dump). The .png files are Figma's own rendered exports
- * (mask + crop already applied); the .jpg files are raw source images for the
- * few topics whose nodes wouldn't render an isolated export.
+ * 1:1 (labels, order, photos). All photos are now the real high-resolution source
+ * images (mostly real Unsplash stock photos per the design's own EXIF metadata),
+ * pulled from Figma's raw image fills rather than the ~100px flattened tile
+ * exports previously checked in here — those were fine at the old fixed 100px
+ * tile size but looked soft once tiles became fully fluid (no more max-width cap).
+ *
+ * Sourcing individual per-topic fills this way (rather than trusting the
+ * aggregated whole-page code dump) also matters because the dump's asset
+ * variables get reused/aliased incorrectly across visually-similar component
+ * instances — confirmed again this pass (equal-pay, refugees, housing, and
+ * mental-health all initially resolved to another topic's photo in the
+ * aggregated dump; each was re-fetched scoped to its own node and verified by
+ * eye before being used).
  *
  * This list does NOT match either the earlier icon-based "Topics-Option_Icons" list
  * or supabase/migrations/20260708000002_seed_topics.sql — three different topic
