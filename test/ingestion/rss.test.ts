@@ -127,4 +127,56 @@ describe("fetchRssCandidates", () => {
     const candidates = await fetchRssCandidates([feedA], parseFeed);
     expect(candidates[0]?.summary).toBeUndefined();
   });
+
+  it("prefers enclosure, then media:content, then media:thumbnail for the image", async () => {
+    const parseFeed: ParseFeed = async () => [
+      {
+        title: "A",
+        link: "https://a.example.com/1",
+        enclosure: { url: "https://a.example.com/enclosure.jpg" },
+        mediaContent: { $: { url: "https://a.example.com/media-content.jpg" } },
+        mediaThumbnail: { $: { url: "https://a.example.com/media-thumb.jpg" } },
+      },
+      {
+        title: "B",
+        link: "https://a.example.com/2",
+        mediaContent: { $: { url: "https://a.example.com/media-content.jpg" } },
+        mediaThumbnail: { $: { url: "https://a.example.com/media-thumb.jpg" } },
+      },
+      {
+        title: "C",
+        link: "https://a.example.com/3",
+        mediaThumbnail: { $: { url: "https://a.example.com/media-thumb.jpg" } },
+      },
+      { title: "D", link: "https://a.example.com/4" },
+    ];
+    const candidates = await fetchRssCandidates([feedA], parseFeed);
+    expect(candidates.find((c) => c.headline === "A")?.imageUrl).toBe(
+      "https://a.example.com/enclosure.jpg",
+    );
+    expect(candidates.find((c) => c.headline === "B")?.imageUrl).toBe(
+      "https://a.example.com/media-content.jpg",
+    );
+    expect(candidates.find((c) => c.headline === "C")?.imageUrl).toBe(
+      "https://a.example.com/media-thumb.jpg",
+    );
+    expect(
+      candidates.find((c) => c.headline === "D")?.imageUrl,
+    ).toBeUndefined();
+  });
+
+  it("handles media:content as an array (multiple sizes) by using the first", async () => {
+    const parseFeed: ParseFeed = async () => [
+      {
+        title: "A",
+        link: "https://a.example.com/1",
+        mediaContent: [
+          { $: { url: "https://a.example.com/large.jpg" } },
+          { $: { url: "https://a.example.com/small.jpg" } },
+        ],
+      },
+    ];
+    const candidates = await fetchRssCandidates([feedA], parseFeed);
+    expect(candidates[0]?.imageUrl).toBe("https://a.example.com/large.jpg");
+  });
 });

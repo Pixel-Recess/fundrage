@@ -12,6 +12,7 @@ export interface LiveArticle {
   canonicalUrl: string;
   sourceSlug: string;
   publishedAt: string;
+  imageUrl: string | null;
   matchedTopics: string[];
 }
 

@@ -152,6 +152,7 @@ export function registerLiveRoutes(
         canonicalUrl: candidate.canonicalUrl,
         sourceSlug: candidate.sourceSlug,
         publishedAt: candidate.publishedAt.toISOString(),
+        imageUrl: candidate.imageUrl ?? null,
         matchedTopics,
       })),
     };

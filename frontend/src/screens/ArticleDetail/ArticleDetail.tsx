@@ -30,9 +30,28 @@ export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits 
       <div className={styles.grabber} aria-hidden="true" />
 
       <div className={styles.content}>
-        {source && <span className={styles.sourcePill}>{source.label}</span>}
+        <div className={styles.metaRow}>
+          {source && <span className={styles.sourcePill}>{source.label}</span>}
+          {article.publishedAt && (
+            <span className={styles.dateLabel}>
+              {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+              })}
+            </span>
+          )}
+        </div>
         <button type="button" className={styles.card} onClick={onReadArticle}>
-          {topic && <img className={styles.thumb} src={topic.photo} alt="" aria-hidden="true" />}
+          {(article.thumbnailUrl ?? topic?.photo) && (
+            <img
+              className={styles.thumb}
+              src={article.thumbnailUrl ?? topic?.photo}
+              alt=""
+              aria-hidden="true"
+            />
+          )}
           <h1 className={styles.headline}>{article.headline}</h1>
           <p className={styles.summary}>{article.preview}</p>
           <span className={styles.readArticleBadge}>Read Article</span>

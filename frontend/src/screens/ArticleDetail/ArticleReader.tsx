@@ -31,8 +31,27 @@ export function ArticleReader({ article, onBack, onSeeNonprofits }: ArticleReade
       <ScreenHeader title="Article" showProfileIcon={false} />
 
       <div className={styles.content}>
-        {source && <span className={styles.sourcePill}>{source.label}</span>}
-        {topic && <img className={styles.thumb} src={topic.photo} alt="" aria-hidden="true" />}
+        <div className={styles.metaRow}>
+          {source && <span className={styles.sourcePill}>{source.label}</span>}
+          {article.publishedAt && (
+            <span className={styles.dateLabel}>
+              {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+              })}
+            </span>
+          )}
+        </div>
+        {(article.thumbnailUrl ?? topic?.photo) && (
+          <img
+            className={styles.thumb}
+            src={article.thumbnailUrl ?? topic?.photo}
+            alt=""
+            aria-hidden="true"
+          />
+        )}
         <h1 className={styles.headline}>{article.headline}</h1>
         {article.live ? (
           <>

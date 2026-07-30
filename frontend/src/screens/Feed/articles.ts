@@ -13,6 +13,12 @@ export interface Article {
    * ArticleReader shows a "read the real thing" link instead of the mock body paragraphs. */
   live?: boolean;
   canonicalUrl?: string;
+  /** Real per-article image from the source RSS feed, when live and the feed provides one.
+   * Falls back to the topic's illustration when absent (or for mock articles, always). */
+  thumbnailUrl?: string;
+  /** Real publish timestamp — only set (and only shown) for live articles, so we never show a
+   * fake date next to mock content. */
+  publishedAt?: string;
 }
 
 /**

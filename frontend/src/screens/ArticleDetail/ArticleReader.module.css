@@ -14,9 +14,15 @@
   padding-bottom: 100px;
 }
 
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
 .sourcePill {
   display: inline-block;
-  margin-bottom: 12px;
   padding: 3px 10px;
   border-radius: 100px;
   background: var(--color-aqua-200);
@@ -25,6 +31,12 @@
   font-weight: 800;
   font-size: 9px;
   text-transform: uppercase;
+}
+
+.dateLabel {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-mist-400);
 }
 
 .thumb {

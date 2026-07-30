@@ -40,6 +40,8 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
             sourceId: live.sourceSlug,
             live: true,
             canonicalUrl: live.canonicalUrl,
+            thumbnailUrl: live.imageUrl ?? undefined,
+            publishedAt: live.publishedAt,
           })),
         );
         setLiveArticles(fannedOut);
@@ -91,9 +93,23 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
                   key={article.id}
                   onClick={() => onSelectArticle(article)}
                 >
-                  <img className={styles.thumb} src={topic.photo} alt="" aria-hidden="true" />
+                  <img
+                    className={styles.thumb}
+                    src={article.thumbnailUrl ?? topic.photo}
+                    alt=""
+                    aria-hidden="true"
+                  />
                   <div className={styles.cardBody}>
                     <p className={styles.headline}>{article.headline}</p>
+                    {article.publishedAt && (
+                      <p className={styles.dateLabel}>
+                        {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </p>
+                    )}
                     <p className={styles.preview}>{article.preview}</p>
                     <span className={styles.sourcePill}>{source?.label ?? article.sourceId}</span>
                   </div>

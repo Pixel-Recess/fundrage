@@ -21,11 +21,11 @@ export function ScreenHeader({ title, showProfileIcon = true, onProfileClick }: 
                 onClick={onProfileClick}
                 aria-label="Account"
               >
-                <ProfileIcon />
+                <ProfileIcon size={36} />
               </button>
             ) : (
               <span className={styles.profileIcon}>
-                <ProfileIcon />
+                <ProfileIcon size={36} />
               </span>
             ))}
           <h1 className={styles.title}>{title}</h1>

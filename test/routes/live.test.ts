@@ -47,6 +47,7 @@ const wildfire: NewsCandidate = {
   sourceSlug: "example.com",
   publishedAt: new Date("2026-07-27T12:00:00Z"),
   summary: "A third wildfire this month forces new evacuations.",
+  imageUrl: "https://example.com/wildfire.jpg",
 };
 const equalPay: NewsCandidate = {
   headline: "Gap in equal pay narrows in tech sector",
@@ -75,6 +76,13 @@ describe("GET /dev/news", () => {
     expect(body.articles).toHaveLength(1);
     expect(body.articles[0].headline).toBe(wildfire.headline);
     expect(body.articles[0].matchedTopics).toEqual(["disaster-relief"]);
+    expect(body.articles[0].imageUrl).toBe(wildfire.imageUrl);
+  });
+
+  it("returns null imageUrl when the source candidate has none", async () => {
+    await build({ fetchNews: async () => [equalPay] });
+    const res = await app.inject({ method: "GET", url: "/dev/news" });
+    expect(res.json().articles[0].imageUrl).toBeNull();
   });
 
   it("matches against multiple requested topics and tags each article with which ones matched", async () => {

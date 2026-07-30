@@ -12,11 +12,24 @@ export interface RssItem {
   contentSnippet?: string;
   summary?: string;
   content?: string;
+  /** Standard RSS 2.0 media attachment — most reliable image source when present. */
+  enclosure?: { url?: string };
+  /** media:content / media:thumbnail (Media RSS extension) — common on news feeds that don't
+   * use <enclosure> for images. Parsed via rss-parser's customFields option below. */
+  mediaContent?: { $?: { url?: string } } | { $?: { url?: string } }[];
+  mediaThumbnail?: { $?: { url?: string } };
 }
 
 export type ParseFeed = (url: string) => Promise<RssItem[]>;
 
-const defaultParser = new Parser();
+const defaultParser = new Parser({
+  customFields: {
+    item: [
+      ["media:content", "mediaContent"],
+      ["media:thumbnail", "mediaThumbnail"],
+    ],
+  },
+});
 
 async function defaultParseFeed(url: string): Promise<RssItem[]> {
   const feed = await defaultParser.parseURL(url);
@@ -40,6 +53,17 @@ function parseItemSummary(item: RssItem): string | undefined {
     .trim();
   if (!text) return undefined;
   return text.length > 280 ? `${text.slice(0, 280).trimEnd()}…` : text;
+}
+
+/** Checks <enclosure>, then media:content, then media:thumbnail — whichever the feed has. */
+function parseItemImage(item: RssItem): string | undefined {
+  if (item.enclosure?.url) return item.enclosure.url;
+  const media = Array.isArray(item.mediaContent)
+    ? item.mediaContent[0]
+    : item.mediaContent;
+  if (media?.$?.url) return media.$.url;
+  if (item.mediaThumbnail?.$?.url) return item.mediaThumbnail.$.url;
+  return undefined;
 }
 
 /**
@@ -70,6 +94,7 @@ export async function fetchRssCandidates(
         sourceSlug: feed.slug,
         publishedAt: parseItemDate(item),
         summary: parseItemSummary(item),
+        imageUrl: parseItemImage(item),
       });
     }
   }
