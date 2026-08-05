@@ -60,9 +60,14 @@ export function NonprofitsFromArticle({
   useEffect(() => {
     let cancelled = false;
     setStatus('loading');
-    fetchLiveCharities(topicId)
-      .then((liveResults) => {
+    const minDelay = new Promise<void>((resolve) => setTimeout(resolve, 1000));
+    Promise.all([fetchLiveCharities(topicId).catch(() => null), minDelay]).then(
+      ([liveResults]) => {
         if (cancelled) return;
+        if (!liveResults) {
+          setStatus('mock');
+          return;
+        }
         setLiveNonprofits(
           liveResults.map((live) => ({
             id: live.id,
@@ -73,10 +78,8 @@ export function NonprofitsFromArticle({
           })),
         );
         setStatus('live');
-      })
-      .catch(() => {
-        if (!cancelled) setStatus('mock');
-      });
+      },
+    );
     return () => {
       cancelled = true;
     };

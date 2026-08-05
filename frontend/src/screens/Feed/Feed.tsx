@@ -53,9 +53,14 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
   useEffect(() => {
     let cancelled = false;
     setStatus('loading');
-    fetchLiveNews(selectedTopicIds)
-      .then((liveResults) => {
+    const minDelay = new Promise<void>((resolve) => setTimeout(resolve, 1000));
+    Promise.all([fetchLiveNews(selectedTopicIds).catch(() => null), minDelay]).then(
+      ([liveResults]) => {
         if (cancelled) return;
+        if (!liveResults) {
+          setStatus('mock');
+          return;
+        }
         const fannedOut: Article[] = liveResults.flatMap((live) =>
           (live.matchedTopics.length > 0 ? live.matchedTopics : ['unmatched']).map((topicId) => ({
             id: `live-${topicId}-${live.canonicalUrl}`,
@@ -72,10 +77,8 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
         );
         setLiveArticles(fannedOut);
         setStatus('live');
-      })
-      .catch(() => {
-        if (!cancelled) setStatus('mock');
-      });
+      },
+    );
     return () => {
       cancelled = true;
     };
