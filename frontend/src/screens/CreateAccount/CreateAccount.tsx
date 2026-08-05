@@ -1,4 +1,4 @@
-import logo from '../../assets/brand/Logotype-Square-White.svg';
+import logo from '../../assets/brand/Logotype-Bubble-White.svg';
 import { AppleLogo } from '../../components/icons/AppleLogo';
 import styles from './CreateAccount.module.css';
 

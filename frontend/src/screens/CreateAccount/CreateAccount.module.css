@@ -12,10 +12,10 @@
 }
 
 .logo {
-  width: 100px;
-  max-width: 100%;
+  width: 220px;
+  max-width: 70%;
   height: auto;
-  aspect-ratio: 1;
+  aspect-ratio: 290 / 343.499;
 }
 
 .title {
