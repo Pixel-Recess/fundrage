@@ -5,88 +5,84 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 100px;
 }
 
-.nonprofitName {
-  margin: 0 0 20px;
+.sectionHeader {
+  margin: 0;
+  padding: 20px 0 10px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-rage-200);
-  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-mist-400);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
 }
 
 .amounts {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  /* Percentage gap is relative to .amounts' own width (bounded by .screen's
-     max-width, capped per breakpoint below), not the full viewport — vw would
-     blow up on desktop. */
-  gap: 3%;
-  margin-bottom: 20px;
+  justify-content: space-between;
 }
 
 .amountButton {
   position: relative;
-  flex: 1;
-  min-width: 0;
-  width: 100%;
-  max-width: 100px;
-  aspect-ratio: 1;
-  border-radius: 3px;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 10px;
   border: 2px solid var(--color-mist-200);
   background: var(--color-mist-100);
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.5rem, 9vw, 2.25rem);
-  color: var(--color-aqua-200);
+  font-weight: 600;
+  font-size: 3rem;
+  color: var(--color-mist-300);
   cursor: pointer;
 }
 
-@media (min-width: 600px) {
-  .amountButton {
-    max-width: 130px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .amountButton {
-    max-width: 160px;
-  }
-}
-
 .amountButtonSelected {
-  border-color: var(--color-aqua-200);
+  border-color: var(--color-aqua-300);
   background: var(--color-white);
+  color: var(--color-aqua-300);
 }
 
 .checkBadge {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 20px;
-  height: 20px;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 20px;
 }
 
 .fieldLabel {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--color-mist-400);
 }
 
 .fieldBox {
@@ -94,10 +90,10 @@
   align-items: center;
   gap: 6px;
   width: 100%;
-  height: 36px;
+  height: 60px;
   padding: 8px 10px;
   border-radius: 3px;
-  border: 1px solid var(--color-mist-200);
+  border: 1px solid var(--color-mist-300);
   background: rgba(209, 212, 224, 0.15);
   box-sizing: border-box;
 }
@@ -105,8 +101,8 @@
 .dollarSign {
   flex-shrink: 0;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-black);
+  font-size: 1.5rem;
+  color: var(--color-mist-300);
 }
 
 .fieldInput {
@@ -117,9 +113,13 @@
   border: none;
   background: none;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-black);
+  font-size: 1.5rem;
+  color: var(--color-mist-500);
   -moz-appearance: textfield;
+}
+
+.fieldInput::placeholder {
+  color: var(--color-mist-300);
 }
 
 .fieldInput:focus {
@@ -132,26 +132,23 @@
   margin: 0;
 }
 
-.sectionLabel {
-  margin: 0 0 8px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9375rem;
-  color: var(--color-navy-500);
-  text-align: center;
-}
-
-.detailsBox {
-  padding: 16px;
-  border-radius: 3px;
-  border: 1px solid var(--color-mist-200);
+.detailsCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 40px 40px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
 }
 
 .ratingCaption {
-  margin: 0 0 8px;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-navy-500);
+  font-size: 0.9375rem;
+  color: var(--color-mist-500);
   text-align: center;
 }
 
@@ -159,7 +156,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  width: 100%;
+  max-width: 310px;
 }
 
 .stars {
@@ -176,11 +174,11 @@
 }
 
 .detailsBody {
-  margin: 0 0 16px;
-  font-family: var(--font-display);
+  margin: 0;
+  font-family: var(--font-body);
   font-size: 0.9375rem;
   line-height: 18px;
-  color: var(--color-navy-500);
+  color: var(--color-mist-500);
   text-align: center;
 }
 
@@ -189,17 +187,59 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  width: 100%;
-  height: 30px;
-  border-radius: 3px;
-  border: 1px solid var(--color-aqua-200);
-  background: var(--color-aqua-200);
-  color: var(--color-navy-500);
+  padding: 9px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--color-mist-300);
+  background: none;
+  color: var(--color-mist-400);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.625rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-size: 0.9375rem;
   cursor: not-allowed;
-  opacity: 0.85;
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 2px solid var(--color-mist-200);
+  background: var(--color-white);
+}
+
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.donateButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
+  color: var(--color-mist-400);
+}
+
+.donateButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
+}
+
+.donateButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

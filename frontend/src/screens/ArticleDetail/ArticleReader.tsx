@@ -1,5 +1,5 @@
 import { ScreenHeader } from '../../components/ScreenHeader';
-import { NavFooter } from '../../components/NavFooter';
+import { OnboardingBottomNav } from '../../components/OnboardingBottomNav';
 import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
 import { TOPICS } from '../TopicSelection/topics';
 import { SOURCES } from '../SourceSelection/sources';
@@ -84,7 +84,7 @@ export function ArticleReader({ article, onBack, onSeeNonprofits }: ArticleReade
         )}
       </div>
 
-      <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="Find Causes" />
+      <OnboardingBottomNav onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="Find Causes" />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { NavFooter } from '../../components/NavFooter';
+import { OnboardingBottomNav } from '../../components/OnboardingBottomNav';
 import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
 import { TOPICS } from '../TopicSelection/topics';
 import { SOURCES } from '../SourceSelection/sources';
@@ -16,11 +16,9 @@ export interface ArticleDetailProps {
 }
 
 /**
- * Preview card — thumbnail, source, headline, and a short summary — matching Figma's
- * "News-URL" sheet (node 3015:2653) and the tap-through pattern of apps like Ground News:
- * tap the card to open the full article in an in-app reader (ArticleReader), rather than
- * showing the whole body here. Presented as a sheet (rounded top corners + grabber) since
- * it's reached over the feed, not a primary nav screen.
+ * Matches Figma's "News-URL" frame (node-id=3069-4877): full-width photo, source pill,
+ * large headline, summary text, and a "Read Article" call-to-action, with the red
+ * Back/Find Causes bottom nav shared with the rest of the onboarding-styled flow.
  */
 export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits }: ArticleDetailProps) {
   const topic = TOPICS_BY_ID.get(article.topicId);
@@ -28,54 +26,37 @@ export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits 
 
   return (
     <div className={styles.screen}>
-      <div className={styles.grabber} aria-hidden="true" />
-
       <div className={styles.content}>
-        <div className={styles.metaRow}>
-          {source && <span className={styles.sourcePill}>{source.label}</span>}
-          {article.publishedAt && (
-            <span className={styles.dateLabel}>
-              {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-              })}
-            </span>
-          )}
-        </div>
-        <div className={styles.card}>
-          <button type="button" className={styles.cardMain} onClick={onReadArticle}>
-            {(article.thumbnailUrl ?? topic?.photo) && (
-              <img
-                className={styles.thumb}
-                src={article.thumbnailUrl ?? topic?.photo}
-                alt=""
-                aria-hidden="true"
-              />
-            )}
-            <h1 className={styles.headline}>{article.headline}</h1>
-            <p className={styles.summary}>{article.preview}</p>
+        {(article.thumbnailUrl ?? topic?.photo) && (
+          <img
+            className={styles.thumb}
+            src={article.thumbnailUrl ?? topic?.photo}
+            alt=""
+            aria-hidden="true"
+          />
+        )}
+        {source && <span className={styles.sourcePill}>{source.label}</span>}
+        <h1 className={styles.headline}>{article.headline}</h1>
+        <p className={styles.summary}>{article.preview}</p>
+
+        {article.live && article.canonicalUrl ? (
+          <a
+            className={styles.readArticleButton}
+            href={article.canonicalUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Read Article
+            <OpenInNewIcon size={14} />
+          </a>
+        ) : (
+          <button type="button" className={styles.readArticleButton} onClick={onReadArticle}>
+            Read Article
           </button>
-          {article.live && article.canonicalUrl ? (
-            <a
-              className={styles.readArticleBadge}
-              href={article.canonicalUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read Article
-              <OpenInNewIcon size={14} />
-            </a>
-          ) : (
-            <button type="button" className={styles.readArticleBadge} onClick={onReadArticle}>
-              Read Article
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
-      <NavFooter onBack={onBack} onNext={onSeeNonprofits} nextEnabled backLabel="Close" nextLabel="Find Causes" />
+      <OnboardingBottomNav onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="Find Causes" />
     </div>
   );
 }

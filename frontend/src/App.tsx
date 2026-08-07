@@ -233,7 +233,6 @@ export function App() {
               nonprofit,
             })
           }
-          onOpenAccount={() => setStep({ name: 'account' })}
         />
       );
 

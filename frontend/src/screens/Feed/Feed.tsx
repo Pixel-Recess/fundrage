@@ -14,24 +14,27 @@ export interface FeedProps {
   onOpenAccount: () => void;
 }
 
+function CardSkeleton() {
+  return (
+    <div className={styles.card} aria-hidden="true">
+      <div className={styles.skeletonThumb} />
+      <div className={styles.cardBody}>
+        <div className={`${styles.skeletonLine} ${styles.skeletonHeadline}`} />
+        <div className={`${styles.skeletonLine} ${styles.skeletonDate}`} />
+        <div className={`${styles.skeletonLine} ${styles.skeletonSummary}`} />
+        <div className={`${styles.skeletonLine} ${styles.skeletonPill}`} />
+      </div>
+    </div>
+  );
+}
+
 function FeedSkeleton() {
   return (
     <>
       <p className={styles.sectionHeader}>Loading...</p>
-      {[0, 1, 2].map((i) => (
-        <div className={styles.card} key={i}>
-          <div className={styles.skeletonThumb} aria-hidden="true" />
-          <div className={styles.cardBody}>
-            <div className={`${styles.skeletonLine} ${styles.skeletonTitle}`} />
-            <div className={`${styles.skeletonLine} ${styles.skeletonDate}`} />
-            <div className={`${styles.skeletonLine} ${styles.skeletonText}`} />
-            <div className={`${styles.skeletonLine} ${styles.skeletonPill}`} />
-          </div>
-          <span className={styles.chevron} aria-hidden="true">
-            ›
-          </span>
-        </div>
-      ))}
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
     </>
   );
 }
@@ -39,7 +42,7 @@ function FeedSkeleton() {
 /**
  * Tries the real /dev/news endpoint first (real RSS headlines/summaries — see
  * src/routes/live.ts on the backend). Shows a skeleton loading state (matching Figma's
- * "News-Loading" frame, node 3041:1692) while the request is in flight, instead of flashing
+ * "News-Loading" frame, node 3069:4983) while the request is in flight, instead of flashing
  * the mock ARTICLES before swapping to live data. Falls back to the mock list only if the
  * live fetch actually fails (no VITE_API_BASE_URL configured, network error, etc.), so the
  * demo never goes blank. A live article can match more than one selected topic
@@ -102,7 +105,7 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
 
   return (
     <div className={styles.screen}>
-      <ScreenHeader title="Your Feed" onProfileClick={onOpenAccount} />
+      <ScreenHeader title="Your News Feed" onProfileClick={onOpenAccount} />
 
       <div className={styles.list} role="feed" aria-label="Your personalized feed">
         {status === 'loading' ? (
@@ -147,9 +150,6 @@ export function Feed({ selectedTopicIds, onSelectArticle, onOpenAccount }: FeedP
                         <p className={styles.preview}>{article.preview}</p>
                         <span className={styles.sourcePill}>{source?.label ?? article.sourceId}</span>
                       </div>
-                      <span className={styles.chevron} aria-hidden="true">
-                        ›
-                      </span>
                     </button>
                   );
                 })}

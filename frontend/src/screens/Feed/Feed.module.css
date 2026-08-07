@@ -5,7 +5,7 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
 }
 
 .list {
@@ -49,12 +49,12 @@
 
 .sectionHeader {
   margin: 0;
-  padding-top: 20px;
+  padding: 20px 0 10px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1;
-  color: var(--color-rage-200);
+  color: var(--color-mist-400);
 }
 
 @media (min-width: 1024px) {
@@ -68,17 +68,19 @@
   gap: 10px;
   align-items: flex-start;
   width: 100%;
-  padding: 20px 0;
+  margin-bottom: 10px;
+  padding: 20px;
   border: none;
-  border-bottom: 1px solid var(--color-mist-200);
-  background: none;
+  border-radius: 6px;
+  background: var(--color-white);
   text-align: left;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .thumb {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   border-radius: 3px;
   border: 2px solid var(--color-mist-200);
   object-fit: cover;
@@ -90,54 +92,48 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
+  gap: 10px;
 }
 
 .headline {
-  margin: 0 0 2px;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 1.125rem;
-  line-height: 1.2;
-  color: var(--color-navy-500);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-mist-500);
+}
+
+.dateLabel {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-mist-400);
 }
 
 .preview {
-  margin: 0 0 8px;
+  margin: 0;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  line-height: 15px;
-  color: var(--color-black);
+  font-size: 0.9375rem;
+  line-height: 18px;
+  color: var(--color-mist-500);
 }
 
 .sourcePill {
   display: inline-block;
   width: fit-content;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 100px;
   background: var(--color-mist-200);
-  color: var(--color-black);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.5625rem;
-}
-
-.dateLabel {
-  margin: 0 0 8px;
-  font-family: var(--font-display);
-  font-weight: 700;
+  color: var(--color-mist-400);
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.75rem;
-  color: var(--color-navy-300);
-}
-
-.chevron {
-  flex-shrink: 0;
-  color: var(--color-navy-500);
-  font-size: 1.125rem;
 }
 
 .skeletonThumb {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   border-radius: 3px;
   background: var(--color-mist-200);
   flex-shrink: 0;
@@ -150,27 +146,24 @@
   animation: skeletonPulse 1.4s ease-in-out infinite;
 }
 
-.skeletonTitle {
-  width: 70%;
-  height: 16px;
-  margin-bottom: 6px;
+.skeletonHeadline {
+  width: 85%;
+  height: 24px;
 }
 
 .skeletonDate {
   width: 40%;
-  height: 10px;
-  margin-bottom: 10px;
+  height: 15px;
 }
 
-.skeletonText {
+.skeletonSummary {
   width: 100%;
-  height: 30px;
-  margin-bottom: 10px;
+  height: 54px;
 }
 
 .skeletonPill {
-  width: 35%;
-  height: 18px;
+  width: 70px;
+  height: 24px;
   border-radius: 100px;
 }
 
