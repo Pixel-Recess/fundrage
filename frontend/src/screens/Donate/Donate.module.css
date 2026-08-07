@@ -44,7 +44,6 @@
 }
 
 .amountButton {
-  position: relative;
   width: 90px;
   height: 90px;
   flex-shrink: 0;
@@ -62,14 +61,6 @@
   border-color: var(--color-aqua-300);
   background: var(--color-white);
   color: var(--color-aqua-300);
-}
-
-.checkBadge {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 18px;
-  height: 18px;
 }
 
 .field {

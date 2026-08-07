@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ScreenHeader } from '../../components/ScreenHeader';
 import { StarIcon } from '../../components/icons/StarIcon';
 import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
-import checkBadge from '../../assets/icons/check-badge.svg';
 import type { Nonprofit } from '../NonprofitsFromArticle/nonprofits';
 import styles from './Donate.module.css';
 
@@ -64,9 +63,6 @@ export function Donate({ nonprofit, onBack, onNext }: DonateProps) {
                   onClick={() => selectPreset(value)}
                 >
                   ${value}
-                  {isSelected && (
-                    <img className={styles.checkBadge} src={checkBadge} alt="" aria-hidden="true" />
-                  )}
                 </button>
               );
             })}
