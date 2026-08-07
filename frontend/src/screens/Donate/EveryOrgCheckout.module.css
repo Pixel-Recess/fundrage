@@ -5,67 +5,7 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-.grabber {
-  position: fixed;
-  top: max(8px, env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 5px;
-  border-radius: 100px;
-  background: var(--color-mist-200);
-  z-index: 3;
-}
-
-.sheetNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: calc(20px + env(safe-area-inset-top)) 16px 10px;
-  background: rgba(249, 249, 249, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
-}
-
-.domain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  color: var(--color-mist-400);
-}
-
-.closeButton {
-  flex-shrink: 0;
-  display: flex;
-  background: none;
-  border: none;
-  padding: 0;
-  color: var(--color-aqua-300);
-  cursor: pointer;
-}
-
-.navSpacer {
-  height: calc(52px + env(safe-area-inset-top));
-  flex-shrink: 0;
+  background: var(--color-mist-100);
 }
 
 .content {
@@ -73,80 +13,145 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 20px 100px;
-  text-align: center;
+  padding: 20px 20px 100px;
 }
 
 .mockBanner {
   width: 100%;
-  margin-bottom: 20px;
-  padding: 10px 12px;
+  margin: 0 0 10px;
+  padding: 12px;
+  border: 1px solid var(--color-purple-300);
   border-radius: 3px;
   background: var(--color-purple-100);
-  color: var(--color-navy-500);
   font-family: var(--font-body);
-  font-size: 0.6875rem;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-navy-500);
   text-align: left;
 }
 
-.nonprofitName {
-  margin: 12px 0 0;
+.sectionHeader {
+  align-self: flex-start;
+  margin: 0;
+  padding: 20px 0 10px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-rage-200);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-mist-400);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.amountBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 2px solid var(--color-mist-200);
+  background: var(--color-mist-100);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3rem;
+  color: var(--color-mist-300);
 }
 
 .frequencyLabel {
-  margin: 4px 0 0;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-mist-400);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 30px;
+  letter-spacing: -0.24px;
+  color: var(--color-mist-500);
 }
 
-.amount {
-  margin: 12px 0 24px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 3rem;
-  color: var(--color-navy-500);
+.trustBody {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: var(--color-mist-500);
+  text-align: left;
 }
 
 .payButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 100%;
-  max-width: 330px;
-  padding: 15px 20px;
-  border-radius: 3px;
+  gap: 5px;
+  padding: 12px 24px;
+  border-radius: 4px;
   border: none;
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-mist-500);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-weight: 800;
+  font-size: 1.125rem;
   cursor: not-allowed;
 }
 
-.altPaymentsNote {
-  margin: 10px 0 0;
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 2px solid var(--color-mist-200);
+  background: var(--color-white);
+}
+
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.simulateButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
   font-family: var(--font-body);
-  font-size: 0.6875rem;
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
   color: var(--color-mist-400);
 }
 
-.spacer {
-  flex: 1;
-}
-
-.trustFooter {
-  margin: 20px 0 0;
-  font-family: var(--font-body);
-  font-size: 0.625rem;
-  line-height: 1.6;
-  color: var(--color-mist-300);
+.simulateButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
 }
