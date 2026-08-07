@@ -5,32 +5,21 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-rage-200);
 }
 
 .grid {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: stretch;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 30px 8%;
   padding: 20px 20px 100px;
-}
-
-.row {
-  display: flex;
-  /* Percentage gap is relative to the row's own width, not the full viewport —
-     vw would blow up on desktop. */
-  gap: 6%;
 }
 
 .box {
   display: flex;
-  /* Fixed at exactly 1/3 of the row (accounting for the two 6% gaps between three
-     items) instead of flex: 1, so a trailing row with fewer than 3 topics (20
-     doesn't divide evenly by 3) keeps the same tile size instead of stretching
-     to fill the leftover space. */
-  flex: 0 0 calc((100% - 12%) / 3);
+  flex: 0 0 46%;
   min-width: 0;
   flex-direction: column;
   align-items: center;
@@ -44,53 +33,43 @@
   aspect-ratio: 1;
   padding: 0;
   border-radius: 3px;
-  border: 2px solid var(--color-mist-200);
-  background: var(--color-mist-100);
+  border: none;
+  background: none;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 120ms ease;
-}
-
-.photoButton:hover {
-  border-color: var(--color-aqua-300);
 }
 
 .photoButton:focus-visible {
-  outline: 2px solid var(--color-navy-400);
+  outline: 2px solid var(--color-white);
   outline-offset: 2px;
-}
-
-.photoButtonSelected {
-  /* Border stays neutral now — selection is signaled by full-opacity photo
-     + the checkmark badge, not a border color change (matches Figma's
-     current selected-state box, which reverted to Mist200 here). */
 }
 
 .photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6;
+  opacity: 1;
   transition: opacity 120ms ease;
 }
 
 .photoSelected {
-  opacity: 1;
+  opacity: 0.3;
 }
 
-.checkBadge {
+.checkMark {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
 }
 
 .label {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-navy-500);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--color-white);
   text-align: center;
 }

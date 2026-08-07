@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { ScreenHeader } from '../../components/ScreenHeader';
-import { NavFooter } from '../../components/NavFooter';
-import checkBadge from '../../assets/icons/check-badge.svg';
+import { OnboardingBottomNav } from '../../components/OnboardingBottomNav';
+import radioEmpty from '../../assets/icons/radio-empty.svg';
+import radioSelected from '../../assets/icons/radio-selected.svg';
 import { SOURCES } from './sources';
 import styles from './SourceSelection.module.css';
 
@@ -59,16 +60,21 @@ export function SourceSelection({
               aria-pressed={isSelected}
               onClick={() => toggleSource(source.id)}
             >
-              <span className={styles.rowLabel}>{source.label}</span>
-              {isSelected && (
-                <img className={styles.checkBadge} src={checkBadge} alt="" aria-hidden="true" />
-              )}
+              <img
+                className={styles.radio}
+                src={isSelected ? radioSelected : radioEmpty}
+                alt=""
+                aria-hidden="true"
+              />
+              <span className={`${styles.rowLabel} ${isSelected ? styles.rowLabelSelected : ''}`}>
+                {source.label}
+              </span>
             </button>
           );
         })}
       </div>
 
-      <NavFooter
+      <OnboardingBottomNav
         onBack={onBack}
         onNext={() => onNext(Array.from(selected))}
         nextEnabled={hasChanges}

@@ -1,0 +1,47 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  background: var(--color-rage-200);
+}
+
+.navSpacer {
+  /* Matches .nav's total rendered height so scrolling content isn't hidden underneath it. */
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.nextButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+}
+
+.nextButton {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--color-rage-200);
+  cursor: not-allowed;
+}
+
+.nextButtonEnabled {
+  background: var(--color-white);
+  color: var(--color-mist-500);
+  cursor: pointer;
+}

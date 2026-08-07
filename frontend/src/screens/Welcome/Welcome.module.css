@@ -1,54 +1,67 @@
 .screen {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-rage-200);
+  padding: 76px 20px 40px;
+  box-sizing: border-box;
 }
 
-.content {
-  flex: 1;
+.talkBubble {
+  width: 290px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 50px 20px 0;
+  align-items: flex-start;
 }
 
-.intro {
+.textBox {
+  width: 100%;
+  padding: 18px 24px 24px;
+  border-radius: 10px;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+
+.bubbleText {
   margin: 0;
-  max-width: 350px;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  line-height: 18px;
-  color: var(--color-navy-500);
-  text-align: center;
-}
-
-.illustration {
-  width: 350px;
-  max-width: 100%;
-  margin-top: 60px;
-}
-
-@media (min-width: 600px) {
-  .illustration {
-    width: 420px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .illustration {
-    width: 480px;
-  }
-}
-
-.headline {
-  margin: 40px 0 0;
-  font-family: var(--font-body);
+  font-weight: 500;
   font-size: 1.875rem;
-  line-height: 1.2;
-  color: var(--color-rage-200);
-  text-align: center;
+  line-height: 36px;
+  letter-spacing: -0.3px;
+  color: var(--color-mist-500);
+}
+
+.bubbleText strong {
+  font-weight: 700;
+}
+
+.tailWrap {
+  padding-left: 24px;
+}
+
+.tail {
+  display: block;
+  width: 66px;
+  height: auto;
+}
+
+.body {
+  margin: 40px 0 0;
+  max-width: 290px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 30px;
+  letter-spacing: -0.24px;
+  color: var(--color-white);
+}
+
+.spacer {
+  flex: 1;
 }

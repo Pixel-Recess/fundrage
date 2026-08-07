@@ -55,9 +55,11 @@ type Step =
       name: 'createAccount';
       topicIds: string[];
       sourceIds: string[];
-      // Where Back should return to — the normal flow comes from Welcome, but Skip/Log in
-      // on the onboarding carousel jump straight here, bypassing Topics/Sources/Welcome.
+      // Where Back should return to — the normal flow comes from Welcome, but Log In
+      // on the onboarding carousel jumps straight here, bypassing Topics/Sources/Welcome.
       backTo: { name: 'welcome' } | { name: 'onboarding'; stepIndex: number };
+      // Drives the screen's copy — "Create an account" vs "Sign into your account".
+      mode: 'create' | 'login';
     }
   | { name: 'account' }
   | { name: 'profile' }
@@ -107,6 +109,7 @@ export function App() {
               topicIds: [],
               sourceIds: [],
               backTo: { name: 'onboarding', stepIndex: step.stepIndex },
+              mode: 'login',
             })
           }
         />
@@ -145,6 +148,7 @@ export function App() {
               topicIds: step.topicIds,
               sourceIds: step.sourceIds,
               backTo: { name: 'welcome' },
+              mode: 'create',
             })
           }
         />
@@ -312,6 +316,7 @@ export function App() {
     case 'createAccount':
       return (
         <CreateAccount
+          mode={step.mode}
           onBack={() =>
             step.backTo.name === 'onboarding'
               ? setStep({ name: 'onboarding', stepIndex: step.backTo.stepIndex })

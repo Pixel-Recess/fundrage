@@ -1,6 +1,5 @@
-import { ScreenHeader } from '../../components/ScreenHeader';
-import { NavFooter } from '../../components/NavFooter';
-import trophy from '../../assets/illustrations/welcome-trophy.png';
+import { OnboardingBottomNav } from '../../components/OnboardingBottomNav';
+import tail from '../../assets/brand/Talkbubble-Tail-White.svg';
 import styles from './Welcome.module.css';
 
 export interface WelcomeProps {
@@ -9,26 +8,31 @@ export interface WelcomeProps {
 }
 
 /**
- * Ported from Figma's "Thank You" frame (66:1226) — but that frame's copy
- * ("Thank you for creating an account with Fundrage.") only makes sense
- * *after* Create Account, not before it. Per explicit direction, this screen
- * sits before Create Account instead, so the copy is rewritten as a
- * pre-signup "nice work, here's what's next" moment instead of a post-signup
- * thank-you — everything else (header style, trophy/confetti illustration,
- * "Time to get giving." line) is carried over as-is.
+ * Mirrors Onboarding5 in the Figma prototype (node-id=3069-4295) — a talk-bubble card
+ * (same style as the intro carousel's) over a full rage-200 background, replacing the old
+ * white-background/trophy-illustration version. Copy is verbatim from the frame.
  */
 export function Welcome({ onBack, onNext }: WelcomeProps) {
   return (
     <div className={styles.screen}>
-      <ScreenHeader title="You're All Set" showProfileIcon={false} />
-
-      <div className={styles.content}>
-        <p className={styles.intro}>You've picked your topics and news sources — nice work.</p>
-        <img className={styles.illustration} src={trophy} alt="" aria-hidden="true" />
-        <p className={styles.headline}>Time to get giving.</p>
+      <div className={styles.talkBubble}>
+        <div className={styles.textBox}>
+          <p className={styles.bubbleText}>
+            <strong>Congratulations!</strong> You’re all done!{' '}
+          </p>
+        </div>
+        <div className={styles.tailWrap}>
+          <img className={styles.tail} src={tail} alt="" aria-hidden="true" />
+        </div>
       </div>
 
-      <NavFooter onBack={onBack} onNext={onNext} nextEnabled nextLabel="Continue" />
+      <p className={styles.body}>
+        Now it’s time start giving. But first you need to save all this work and create an account.
+      </p>
+
+      <div className={styles.spacer} />
+
+      <OnboardingBottomNav onBack={onBack} onNext={onNext} nextEnabled nextLabel="Create Account" />
     </div>
   );
 }
