@@ -5,51 +5,53 @@
   right: 0;
   z-index: 2;
   background: var(--color-rage-200);
-  /* Reserves room for the device's real status bar / notch / Dynamic Island instead of a
-     fixed height baked in for one specific device — falls back to 20px where env() isn't
-     supported. */
-  padding-top: max(20px, env(safe-area-inset-top));
+  /* Reserves room for the device's real status bar / notch / Dynamic Island on top of
+     Figma's own 120px-tall header (20px padding + 40px content row + 20px padding again is
+     the outer flex's items-end, leaving 40px of empty red space above the content) instead
+     of a fixed height baked in for one specific device. */
+  padding: max(20px, env(safe-area-inset-top)) 20px 20px;
+  box-sizing: border-box;
 }
 
 .headerSpacer {
-  /* Matches .header's total rendered height (its own top padding + .headerRow's height)
-     so content isn't hidden underneath on first render, now that .header is fixed and no
-     longer reserves this space in normal flow itself. */
-  height: calc(60px + max(20px, env(safe-area-inset-top)));
+  /* Matches .header's total rendered height so content isn't hidden underneath on first
+     render, now that .header is fixed and no longer reserves this space in normal flow. */
+  height: calc(80px + max(20px, env(safe-area-inset-top)));
   flex-shrink: 0;
 }
 
 .headerRow {
-  position: relative;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
-  height: 60px;
-  padding: 0 20px 18px;
+  height: 40px;
 }
 
 .title {
+  flex: 1 0 0;
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
   font-size: 1.875rem;
-  line-height: 36px;
+  line-height: 30px;
   color: var(--color-white);
   text-align: center;
 }
 
 .profileIcon {
-  position: absolute;
-  left: 20px;
-  bottom: 18px;
+  display: flex;
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  flex-shrink: 0;
   color: var(--color-white);
 }
 
 .leadingButton {
-  position: absolute;
-  left: 20px;
-  bottom: 18px;
   display: flex;
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  flex-shrink: 0;
   color: var(--color-white);
   background: none;
   border: none;
