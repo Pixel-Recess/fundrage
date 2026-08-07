@@ -5,27 +5,39 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  padding-bottom: 100px;
+  padding: 0 20px 100px;
 }
 
-.sectionLabel {
-  margin: 0 0 8px;
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0 20px 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+
+.cardHeading {
+  margin: 0;
+  padding: 20px 0 10px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-rage-200);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-mist-400);
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
 }
 
 .row {
@@ -33,7 +45,7 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 16px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--color-mist-200);
   background: none;
   border-left: none;
@@ -43,16 +55,24 @@
   text-align: left;
 }
 
-.radioDot {
-  display: flex;
+.group .row:last-child {
+  border-bottom: none;
+}
+
+.radioIcon {
   flex-shrink: 0;
-  color: var(--color-aqua-300);
+  width: 20px;
+  height: 20px;
 }
 
 .rowLabel {
   font-family: var(--font-display);
-  font-size: 0.9375rem;
-  color: var(--color-black);
+  font-size: 1.125rem;
+  color: var(--color-mist-300);
+}
+
+.rowLabelSelected {
+  color: var(--color-mist-500);
 }
 
 .fieldWrap {
@@ -61,21 +81,24 @@
   gap: 5px;
 }
 
-.fieldCaption {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-black);
+.fieldLabel {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 18px;
+  color: var(--color-mist-400);
 }
 
 .textarea {
   width: 100%;
-  height: 200px;
+  height: 150px;
   padding: 8px 10px;
   border-radius: 3px;
-  border: 1px solid var(--color-mist-200);
+  border: 1px solid var(--color-mist-300);
   background: rgba(209, 212, 224, 0.15);
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 18px;
   color: var(--color-black);
   resize: none;
   box-sizing: border-box;
@@ -85,9 +108,57 @@
   color: var(--color-mist-300);
 }
 
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-mist-200);
+  background: var(--color-white);
+}
+
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.sendButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
+  color: var(--color-mist-400);
+}
+
+.sendButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
+}
+
+.sendButton:disabled {
+  background: var(--color-mist-100);
+  color: var(--color-mist-200);
+  cursor: not-allowed;
+}
+
 .toastBackdrop {
   position: fixed;
   inset: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;

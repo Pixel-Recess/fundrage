@@ -5,32 +5,31 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
   position: relative;
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  padding-bottom: 40px;
+  padding: 0 20px 100px;
 }
 
-.avatarWrap {
-  position: relative;
-  width: 80px;
-  margin: 0 auto 30px;
+.profileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
 }
 
-.avatarButton {
+.avatar {
   display: block;
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  flex-shrink: 0;
+  border-radius: 300px;
   border: 2px solid var(--color-mist-200);
-  background: var(--color-white);
-  padding: 0;
+  background: var(--color-mist-100);
   overflow: hidden;
-  cursor: pointer;
 }
 
 .avatarImg {
@@ -43,36 +42,46 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--color-mist-100);
+  background: var(--color-mist-200);
 }
 
-.cameraBadge {
-  position: absolute;
-  right: -6px;
-  bottom: -6px;
-  width: 28px;
-  height: 28px;
+.uploadButton {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: none;
-  background: var(--color-aqua-200);
-  color: var(--color-white);
+  gap: 5px;
+  padding: 9px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--color-mist-300);
+  background: none;
+  color: var(--color-mist-400);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.9375rem;
   cursor: pointer;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 16px;
 }
 
 .fieldLabel {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--color-mist-400);
 }
 
 .fieldBox {
@@ -80,17 +89,22 @@
   align-items: center;
   gap: 6px;
   width: 100%;
-  height: 36px;
+  height: 50px;
   padding: 8px 10px;
   border-radius: 3px;
-  border: 1px solid var(--color-mist-200);
+  border: 1px solid var(--color-mist-300);
   background: rgba(209, 212, 224, 0.15);
+  box-sizing: border-box;
+}
+
+.fieldBoxFilled {
+  background: var(--color-white);
 }
 
 .fieldIcon {
   display: flex;
   flex-shrink: 0;
-  color: var(--color-mist-200);
+  color: var(--color-mist-300);
 }
 
 .fieldInput {
@@ -101,7 +115,7 @@
   border: none;
   background: none;
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   color: var(--color-black);
 }
 
@@ -110,7 +124,54 @@
 }
 
 .fieldInput::placeholder {
+  color: var(--color-mist-300);
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-mist-200);
+  background: var(--color-white);
+}
+
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.saveButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
+  color: var(--color-mist-400);
+}
+
+.saveButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
+}
+
+.saveButton:disabled {
+  background: var(--color-mist-100);
   color: var(--color-mist-200);
+  cursor: not-allowed;
 }
 
 .hiddenFileInput {
@@ -120,6 +181,7 @@
 .sheetBackdrop {
   position: fixed;
   inset: 0;
+  z-index: 10;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -196,6 +258,7 @@
 .toastBackdrop {
   position: fixed;
   inset: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;

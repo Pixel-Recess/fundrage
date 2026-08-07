@@ -5,13 +5,12 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  padding-bottom: 60px;
+  padding: 20px 20px 100px;
 }
 
 .empty {
@@ -40,6 +39,7 @@
 .list {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .row {
@@ -48,87 +48,77 @@
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--color-mist-200);
-  background: none;
-  border-left: none;
-  border-right: none;
-  border-top: none;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  border: none;
   cursor: pointer;
   text-align: left;
-}
-
-.row:first-child {
-  border-top: 1px solid var(--color-mist-200);
+  box-sizing: border-box;
 }
 
 .rowText {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   min-width: 0;
 }
 
 .rowName {
   font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1.5rem;
+  line-height: 1;
   color: var(--color-mist-500);
 }
 
 .rowDetails {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--color-mist-300);
+  font-size: 0.9375rem;
+  color: var(--color-mist-400);
 }
 
-.dot {
-  color: var(--color-mist-300);
-}
-
-.rowRight {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
-  color: var(--color-navy-500);
+.rowDate {
+  font-weight: 700;
 }
 
 .rowAmount {
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 0.9375rem;
-  color: var(--color-aqua-300);
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--color-mist-300);
 }
 
-.backFooter {
+.bottomNav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 2;
-  padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-mist-200);
   background: var(--color-white);
 }
 
-.footerSpacer {
-  height: calc(60px + env(safe-area-inset-bottom));
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
   flex-shrink: 0;
 }
 
 .backButton {
-  width: 100%;
-  height: 40px;
-  border-radius: 3px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: 1px solid var(--color-mist-300);
+  background: none;
+  color: var(--color-mist-400);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 1.125rem;
   cursor: pointer;
-  background: var(--color-white);
-  border: 1px solid var(--color-mist-200);
-  color: var(--color-mist-400);
 }

@@ -35,59 +35,106 @@ type Frequency = 'daily' | 'weekly' | 'onNews';
 const FREQUENCY_OPTIONS: { value: Frequency; label: string }[] = [
   { value: 'daily', label: 'Once a day' },
   { value: 'weekly', label: 'Once a week' },
-  { value: 'onNews', label: 'When a cause I care is in the news' },
+  { value: 'onNews', label: 'When a cause is in the news' },
 ];
 
+interface Prefs {
+  frequency: Frequency;
+  push: boolean;
+  email: boolean;
+}
+
+const INITIAL_PREFS: Prefs = { frequency: 'onNews', push: true, email: true };
+
 /**
- * Built from Figma's "Notifications" frame (57:1103). Toggles auto-save to local
- * state immediately (no separate Save step) — matching how iOS Settings toggles
- * behave, and simpler than a form since there's no real backend to persist to yet.
- * The footer's "START DONATING" CTA from Figma only makes sense in an onboarding
- * context; here (reached from Settings) it's a plain Back link instead.
- *
- * "Notify me" is a single-select frequency choice (only one active at a time, per
- * Figma's mock state) rendered with the same toggle-switch visual as the delivery
- * rows below — clicking an option selects it; clicking the already-selected one is
- * a no-op, same as a radio group. "Text" delivery was dropped per explicit product
- * call — not confident it'll ship even in an early version, unlike Push/Email.
+ * Matches Figma's "Notifications"/"Notifications-Save" frames (node-id=3161-8959,
+ * 3320-9651) — white header, mist-100 background, two white cards, and a Back/Save Updates
+ * bottom nav following the same pattern as Profile/Contact. Changed from a prior auto-save
+ * design (toggles committing immediately, no Save step) to match this explicit disabled →
+ * enabled Save Updates affordance Figma now shows. "Text" delivery was dropped per earlier
+ * explicit product call — not confident it'll ship even in an early version, unlike
+ * Push/Email.
  */
 export function Notifications({ onBack }: NotificationsProps) {
-  const [frequency, setFrequency] = useState<Frequency>('onNews');
-  const [push, setPush] = useState(true);
-  const [email, setEmail] = useState(true);
+  const [draft, setDraft] = useState<Prefs>(INITIAL_PREFS);
+  const [saved, setSaved] = useState(false);
+  const hasChanges = JSON.stringify(draft) !== JSON.stringify(INITIAL_PREFS);
+
+  function handleSave() {
+    setSaved(true);
+  }
 
   return (
     <div className={styles.screen}>
-      <ScreenHeader title="Notifications" showProfileIcon={false} />
+      <ScreenHeader title="Notifications" showProfileIcon={false} variant="white" />
 
       <div className={styles.content}>
-        <p className={styles.sectionLabel}>Notify me</p>
-        <div className={styles.group}>
-          {FREQUENCY_OPTIONS.map((option) => (
-            <ToggleRow
-              key={option.value}
-              label={option.label}
-              checked={frequency === option.value}
-              onChange={(checked) => {
-                if (checked) setFrequency(option.value);
-              }}
-            />
-          ))}
+        <div className={styles.card}>
+          <p className={styles.cardHeading}>Notify me...</p>
+          <div className={styles.group}>
+            {FREQUENCY_OPTIONS.map((option) => (
+              <ToggleRow
+                key={option.value}
+                label={option.label}
+                checked={draft.frequency === option.value}
+                onChange={(checked) => {
+                  if (checked) setDraft((p) => ({ ...p, frequency: option.value }));
+                }}
+              />
+            ))}
+          </div>
         </div>
 
-        <p className={styles.sectionLabel}>Notify me via</p>
-        <div className={styles.group}>
-          <ToggleRow label="Push notifications" checked={push} onChange={setPush} />
-          <ToggleRow label="Email (in profile)" checked={email} onChange={setEmail} />
+        <div className={styles.card}>
+          <p className={styles.cardHeading}>Notify me via...</p>
+          <div className={styles.group}>
+            <ToggleRow
+              label="Push notifications"
+              checked={draft.push}
+              onChange={(push) => setDraft((p) => ({ ...p, push }))}
+            />
+            <ToggleRow
+              label="Email"
+              checked={draft.email}
+              onChange={(email) => setDraft((p) => ({ ...p, email }))}
+            />
+          </div>
         </div>
       </div>
 
-      <footer className={styles.footer}>
+      <footer className={styles.bottomNav}>
         <button type="button" className={styles.backButton} onClick={onBack}>
           Back
         </button>
+        <button
+          type="button"
+          className={styles.saveButton}
+          disabled={!hasChanges}
+          onClick={handleSave}
+        >
+          Save Updates
+        </button>
       </footer>
-      <div className={styles.footerSpacer} aria-hidden="true" />
+      <div className={styles.navSpacer} aria-hidden="true" />
+
+      {saved && (
+        <div className={styles.toastBackdrop} role="alert">
+          <div className={styles.toast}>
+            <p className={styles.toastTitle}>Success!</p>
+            <p className={styles.toastBody}>Your notification preferences were updated.</p>
+            <button
+              type="button"
+              className={styles.toastClose}
+              onClick={() => {
+                setSaved(false);
+                onBack();
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

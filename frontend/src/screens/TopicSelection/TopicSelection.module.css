@@ -8,6 +8,23 @@
   background: var(--color-rage-200);
 }
 
+.screenSettings {
+  background: var(--color-mist-100);
+}
+
+.content {
+  flex: 1;
+  padding: 0 20px 100px;
+}
+
+.card {
+  width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+
 .grid {
   flex: 1;
   display: flex;
@@ -15,6 +32,10 @@
   align-content: flex-start;
   gap: 30px 8%;
   padding: 20px 20px 100px;
+}
+
+.gridSettings {
+  padding: 0;
 }
 
 .box {
@@ -72,4 +93,55 @@
   font-size: 1.125rem;
   color: var(--color-white);
   text-align: center;
+}
+
+.labelSettings {
+  color: var(--color-mist-500);
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-mist-200);
+  background: var(--color-white);
+}
+
+.navSpacer {
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.backButton,
+.saveButton {
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
+  color: var(--color-mist-400);
+}
+
+.saveButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
+}
+
+.saveButton:disabled {
+  background: var(--color-mist-100);
+  color: var(--color-mist-200);
+  cursor: not-allowed;
 }

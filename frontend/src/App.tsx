@@ -388,8 +388,9 @@ export function App() {
         <TopicSelection
           mood="angry"
           title="Your Topics"
+          variant="settings"
           initialSelectedIds={savedTopicIds}
-          nextLabel="Save"
+          nextLabel="Save Updates"
           onBack={() => setStep({ name: 'account' })}
           onNext={(topicIds) => {
             setSavedTopicIds(topicIds);
@@ -402,8 +403,9 @@ export function App() {
       return (
         <SourceSelection
           title="Your News Sources"
+          variant="settings"
           initialSelectedIds={savedSourceIds}
-          nextLabel="Save"
+          nextLabel="Save Updates"
           onBack={() => setStep({ name: 'account' })}
           onNext={(sourceIds) => {
             setSavedSourceIds(sourceIds);
