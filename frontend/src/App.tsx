@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Splash } from './screens/Splash/Splash';
 import { Onboarding } from './screens/Onboarding/Onboarding';
 import { TopicSelection } from './screens/TopicSelection/TopicSelection';
 import { SourceSelection } from './screens/SourceSelection/SourceSelection';
@@ -25,6 +26,7 @@ import type { Receipt } from './screens/Receipts/receiptsData';
 import type { Nonprofit } from './screens/NonprofitsFromArticle/nonprofits';
 
 type Step =
+  | { name: 'splash' }
   | { name: 'onboarding'; stepIndex: number }
   | { name: 'topics' }
   | { name: 'sources'; topicIds: string[] }
@@ -67,7 +69,7 @@ type Step =
   | { name: 'editSources' };
 
 export function App() {
-  const [step, setStep] = useState<Step>({ name: 'onboarding', stepIndex: 0 });
+  const [step, setStep] = useState<Step>({ name: 'splash' });
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   // The topics/sources a user has actually saved to their account — distinct from the
   // in-flight topicIds/sourceIds each onboarding Step carries forward, so Settings can
@@ -77,6 +79,9 @@ export function App() {
   const [receipts, setReceipts] = useState<Receipt[]>(RECEIPTS);
 
   switch (step.name) {
+    case 'splash':
+      return <Splash onComplete={() => setStep({ name: 'onboarding', stepIndex: 0 })} />;
+
     case 'onboarding':
       return (
         <Onboarding
