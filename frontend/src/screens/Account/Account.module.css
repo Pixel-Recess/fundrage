@@ -5,13 +5,12 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-white);
+  background: var(--color-mist-100);
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  padding-bottom: 100px;
+  padding: 0 20px 100px;
 }
 
 .profileBand {
@@ -21,21 +20,22 @@
 .profileSummary {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
   padding: 20px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .avatar {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 300px;
   border: 2px solid var(--color-mist-200);
   overflow: hidden;
 }
@@ -50,20 +50,53 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--color-mist-100);
+  background: var(--color-mist-200);
+}
+
+.profileText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .profileName {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: 1.5rem;
+  line-height: 24px;
   color: var(--color-navy-500);
 }
 
-.sectionLabel {
-  margin: 24px 0 4px;
+.donationsTotal {
   font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--color-rage-200);
+  font-size: 0.9375rem;
+  line-height: 18px;
+  color: var(--color-navy-500);
+}
+
+.donationsTotal strong {
+  font-weight: 700;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0 10px 10px 20px;
+  border-radius: 6px;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+
+.cardHeading {
+  margin: 0;
+  padding: 20px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-mist-400);
 }
 
 .group {
@@ -76,14 +109,18 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-mist-200);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-mist-100);
   background: none;
   border-left: none;
   border-right: none;
   border-top: none;
   cursor: pointer;
   text-align: left;
+}
+
+.group .row:last-child {
+  border-bottom: none;
 }
 
 .row:disabled {
@@ -93,52 +130,43 @@
 .rowLeft {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
   min-width: 0;
 }
 
 .rowLeadingIcon {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
   flex-shrink: 0;
-  color: var(--color-mist-200);
+  color: var(--color-mist-300);
 }
 
 .rowLabel {
   font-family: var(--font-display);
-  font-size: 0.9375rem;
-  color: var(--color-navy-500);
-}
-
-.rowRight {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.rowDetail {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   color: var(--color-mist-400);
 }
 
 .rowIcon {
   display: flex;
-  color: var(--color-mist-200);
+  flex-shrink: 0;
+  color: var(--color-mist-300);
 }
 
 .deleteButton {
   width: 100%;
-  height: 30px;
-  margin-top: 32px;
-  border-radius: 3px;
-  border: 1px solid var(--color-rage-200);
-  background: var(--color-white);
-  color: var(--color-rage-200);
+  padding: 9px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--color-mist-300);
+  background: none;
+  color: var(--color-mist-400);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.625rem;
+  font-size: 0.9375rem;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .footer {
@@ -149,47 +177,43 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+  justify-content: space-between;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-mist-200);
   background: var(--color-white);
 }
 
 .footerSpacer {
-  height: calc(60px + env(safe-area-inset-bottom));
+  height: calc(24px + 42px + 36px + env(safe-area-inset-bottom));
   flex-shrink: 0;
 }
 
-.footerButton {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 40px;
-  border-radius: 3px;
+.backButton,
+.signOutButton {
+  padding: 12px 24px;
+  border-radius: 4px;
   border: none;
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 1.125rem;
   cursor: pointer;
 }
 
-.footerBackButton {
-  border: 1px solid var(--color-mist-200);
-  background: var(--color-white);
+.backButton {
+  background: none;
+  border: 1px solid var(--color-mist-300);
   color: var(--color-mist-400);
 }
 
-.footerActionButton {
-  background: var(--color-aqua-200);
-  color: var(--color-navy-500);
+.signOutButton {
+  background: var(--color-aqua-300);
+  color: var(--color-white);
 }
 
 .modalBackdrop {
   position: fixed;
   inset: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;

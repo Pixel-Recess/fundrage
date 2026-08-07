@@ -10,15 +10,13 @@ import { ChatIcon } from '../../components/icons/ChatIcon';
 import { HelpIcon } from '../../components/icons/HelpIcon';
 import { DescriptionIcon } from '../../components/icons/DescriptionIcon';
 import { VerifiedUserIcon } from '../../components/icons/VerifiedUserIcon';
-import { ExitToAppIcon } from '../../components/icons/ExitToAppIcon';
 import { ReceiptIcon } from '../../components/icons/ReceiptIcon';
 import type { UserProfile } from './profile';
 import styles from './Account.module.css';
 
 export interface AccountProps {
   profile: UserProfile;
-  topicCount: number;
-  sourceCount: number;
+  totalDonations: number;
   onBack: () => void;
   onOpenProfile: () => void;
   onEditTopics: () => void;
@@ -33,38 +31,50 @@ export interface AccountProps {
 interface OptionRowProps {
   icon: ReactNode;
   label: string;
-  detail?: string;
   external?: boolean;
   onClick?: () => void;
 }
 
-function OptionRow({ icon, label, detail, external, onClick }: OptionRowProps) {
+function OptionRow({ icon, label, external, onClick }: OptionRowProps) {
   return (
     <button type="button" className={styles.row} onClick={onClick} disabled={!onClick}>
       <span className={styles.rowLeft}>
         <span className={styles.rowLeadingIcon}>{icon}</span>
         <span className={styles.rowLabel}>{label}</span>
       </span>
-      <span className={styles.rowRight}>
-        {detail && <span className={styles.rowDetail}>{detail}</span>}
-        <span className={styles.rowIcon}>{external ? <OpenInNewIcon /> : <ChevronRightIcon />}</span>
-      </span>
+      <span className={styles.rowIcon}>{external ? <OpenInNewIcon /> : <ChevronRightIcon />}</span>
     </button>
   );
 }
 
+interface CardProps {
+  heading: string;
+  children: ReactNode;
+}
+
+function Card({ heading, children }: CardProps) {
+  return (
+    <div className={styles.card}>
+      <p className={styles.cardHeading}>{heading}</p>
+      <div className={styles.group}>{children}</div>
+    </div>
+  );
+}
+
 /**
- * Built from Figma's "Account" frame (41:1166), combined with the delete-confirm
- * interaction from "Account - Delete" (64:1319). Payment Method (and the donation-stats
- * chart, which only makes sense once real payment settings exist) are still left out —
- * Donation Receipts was added back per explicit request, since a receipt history doesn't
- * require touching payment/card data itself (see Receipts/ReceiptDetail).
+ * Matches Figma's "Account-New"/"Account" frames (node-id=3161-7722, 3161-7567) — the same
+ * empty-state-vs-complete-profile pair, with each section now its own white card on a
+ * mist-100 background, and a white header (rage-200 title) instead of the app's usual red
+ * one. Payment Method (and a donation-stats chart, which only makes sense once real payment
+ * settings exist) are still left out — Donation Receipts was added back per explicit request,
+ * since a receipt history doesn't require touching payment/card data itself (see
+ * Receipts/ReceiptDetail). The per-row topic/source counts Figma's own OptionRow doesn't show
+ * were dropped to match exactly; that detail is still one tap away on those screens.
  */
 export function Account({
   profile,
-  topicCount,
-  sourceCount,
   onBack,
+  totalDonations,
   onOpenProfile,
   onEditTopics,
   onEditSources,
@@ -78,7 +88,7 @@ export function Account({
 
   return (
     <div className={styles.screen}>
-      <ScreenHeader title="Your Account" showProfileIcon={false} />
+      <ScreenHeader title="Your Account" showProfileIcon={false} variant="white" />
 
       <div className={styles.profileBand}>
         <button type="button" className={styles.profileSummary} onClick={onOpenProfile}>
@@ -89,70 +99,54 @@ export function Account({
               <span className={styles.avatarPlaceholder} aria-hidden="true" />
             )}
           </span>
-          <span className={styles.profileName}>{profile.name}</span>
+          <span className={styles.profileText}>
+            <span className={styles.profileName}>{profile.name}</span>
+            {totalDonations > 0 && (
+              <span className={styles.donationsTotal}>
+                Total Donations: <strong>${totalDonations}</strong>
+              </span>
+            )}
+          </span>
         </button>
       </div>
 
       <div className={styles.content}>
-        <p className={styles.sectionLabel}>Account Details</p>
-        <div className={styles.group}>
+        <Card heading="Account Details">
           <OptionRow icon={<AccountCircleIcon />} label="Your Profile" onClick={onOpenProfile} />
-          <OptionRow
-            icon={<LabelIcon />}
-            label="Your Topics"
-            detail={`${topicCount} selected`}
-            onClick={onEditTopics}
-          />
-          <OptionRow
-            icon={<ChromeReaderModeIcon />}
-            label="News Sources"
-            detail={`${sourceCount} selected`}
-            onClick={onEditSources}
-          />
+          <OptionRow icon={<LabelIcon />} label="Your Topics" onClick={onEditTopics} />
+          <OptionRow icon={<ChromeReaderModeIcon />} label="Your News Sources" onClick={onEditSources} />
           <OptionRow icon={<ReceiptIcon />} label="Donation Receipts" onClick={onOpenReceipts} />
-        </div>
+        </Card>
 
-        <p className={styles.sectionLabel}>Settings</p>
-        <div className={styles.group}>
+        <Card heading="Settings">
           <OptionRow icon={<NotificationsIcon />} label="Notifications" onClick={onOpenNotifications} />
-        </div>
+        </Card>
 
-        <p className={styles.sectionLabel}>Support</p>
-        <div className={styles.group}>
+        <Card heading="Support">
           <OptionRow icon={<ChatIcon />} label="Contact Us" onClick={onOpenContact} />
           <OptionRow icon={<HelpIcon />} label="FAQs" external />
-        </div>
+        </Card>
 
-        <p className={styles.sectionLabel}>About Fundrage</p>
-        <div className={styles.group}>
+        <Card heading="About Fundrage">
           <OptionRow icon={<DescriptionIcon />} label="User Agreement" external />
           <OptionRow icon={<VerifiedUserIcon />} label="Privacy Policy" external />
-        </div>
+        </Card>
 
         <button
           type="button"
           className={styles.deleteButton}
           onClick={() => setConfirmingDelete(true)}
         >
-          Delete Your Account
+          Delete your account
         </button>
       </div>
 
       <footer className={styles.footer}>
-        <button
-          type="button"
-          className={`${styles.footerButton} ${styles.footerBackButton}`}
-          onClick={onBack}
-        >
+        <button type="button" className={styles.backButton} onClick={onBack}>
           Back
         </button>
-        <button
-          type="button"
-          className={`${styles.footerButton} ${styles.footerActionButton}`}
-          onClick={onSignOut}
-        >
-          SIGN OUT
-          <ExitToAppIcon size={14} />
+        <button type="button" className={styles.signOutButton} onClick={onSignOut}>
+          Sign Out
         </button>
       </footer>
       <div className={styles.footerSpacer} aria-hidden="true" />

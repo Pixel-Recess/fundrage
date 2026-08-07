@@ -13,6 +13,14 @@
   box-sizing: border-box;
 }
 
+.headerWhite {
+  background: var(--color-white);
+}
+
+.headerWhite .title {
+  color: var(--color-rage-200);
+}
+
 .headerSpacer {
   /* Matches .header's total rendered height so content isn't hidden underneath on first
      render, now that .header is fixed and no longer reserves this space in normal flow. */

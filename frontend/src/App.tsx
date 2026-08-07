@@ -329,8 +329,7 @@ export function App() {
       return (
         <Account
           profile={profile}
-          topicCount={savedTopicIds.length}
-          sourceCount={savedSourceIds.length}
+          totalDonations={receipts.reduce((sum, receipt) => sum + receipt.amount, 0)}
           onBack={() => setStep({ name: 'feed', topicIds: savedTopicIds, sourceIds: savedSourceIds })}
           onOpenProfile={() => setStep({ name: 'profile' })}
           onEditTopics={() => setStep({ name: 'editTopics' })}

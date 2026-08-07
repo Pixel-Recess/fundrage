@@ -6,12 +6,19 @@ export interface ScreenHeaderProps {
   showProfileIcon?: boolean;
   /** When provided, the profile icon becomes a button (used to open Account/Settings). */
   onProfileClick?: () => void;
+  /** "white" matches Figma's Account frames — white bg, rage-200 title (node-id=3161-7722). */
+  variant?: 'red' | 'white';
 }
 
-export function ScreenHeader({ title, showProfileIcon = true, onProfileClick }: ScreenHeaderProps) {
+export function ScreenHeader({
+  title,
+  showProfileIcon = true,
+  onProfileClick,
+  variant = 'red',
+}: ScreenHeaderProps) {
   return (
     <>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${variant === 'white' ? styles.headerWhite : ''}`}>
         <div className={styles.headerRow}>
           {showProfileIcon &&
             (onProfileClick ? (
