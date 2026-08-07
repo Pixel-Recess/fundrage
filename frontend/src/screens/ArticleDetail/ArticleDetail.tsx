@@ -1,4 +1,3 @@
-import { OnboardingBottomNav } from '../../components/OnboardingBottomNav';
 import { OpenInNewIcon } from '../../components/icons/OpenInNewIcon';
 import { TOPICS } from '../TopicSelection/topics';
 import { SOURCES } from '../SourceSelection/sources';
@@ -16,9 +15,9 @@ export interface ArticleDetailProps {
 }
 
 /**
- * Matches Figma's "News-URL" frame (node-id=3069-4877): full-width photo, source pill,
- * large headline, summary text, and a "Read Article" call-to-action, with the red
- * Back/Find Causes bottom nav shared with the rest of the onboarding-styled flow.
+ * Matches Figma's "News-URL" frame (node-id=3069-4877): full-width photo, source pill, large
+ * headline, summary text fading into a black gradient with a centered "Read Article" button
+ * on top of it, and the white Back/Find Causes bottom nav shared with Donate/EveryOrgCheckout.
  */
 export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits }: ArticleDetailProps) {
   const topic = TOPICS_BY_ID.get(article.topicId);
@@ -38,25 +37,34 @@ export function ArticleDetail({ article, onBack, onReadArticle, onSeeNonprofits 
         {source && <span className={styles.sourcePill}>{source.label}</span>}
         <h1 className={styles.headline}>{article.headline}</h1>
         <p className={styles.summary}>{article.preview}</p>
-
-        {article.live && article.canonicalUrl ? (
-          <a
-            className={styles.readArticleButton}
-            href={article.canonicalUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Read Article
-            <OpenInNewIcon size={14} />
-          </a>
-        ) : (
-          <button type="button" className={styles.readArticleButton} onClick={onReadArticle}>
-            Read Article
-          </button>
-        )}
       </div>
 
-      <OnboardingBottomNav onBack={onBack} onNext={onSeeNonprofits} nextEnabled nextLabel="Find Causes" />
+      <div className={styles.fadeOverlay} aria-hidden="true" />
+      {article.live && article.canonicalUrl ? (
+        <a
+          className={styles.readArticleButton}
+          href={article.canonicalUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Read Article
+          <OpenInNewIcon size={14} />
+        </a>
+      ) : (
+        <button type="button" className={styles.readArticleButton} onClick={onReadArticle}>
+          Read Article
+        </button>
+      )}
+
+      <footer className={styles.bottomNav}>
+        <button type="button" className={styles.backButton} onClick={onBack}>
+          Back
+        </button>
+        <button type="button" className={styles.findCausesButton} onClick={onSeeNonprofits}>
+          Find Causes
+        </button>
+      </footer>
+      <div className={styles.navSpacer} aria-hidden="true" />
     </div>
   );
 }
