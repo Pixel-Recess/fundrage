@@ -1,6 +1,6 @@
 import { useRef, useState, type PointerEvent } from 'react';
-import { NavFooter } from '../../components/NavFooter';
-import { ONBOARDING_BG, ONBOARDING_STEPS } from './onboardingSteps';
+import tail from '../../assets/brand/Talkbubble-Tail-White.svg';
+import { ONBOARDING_STEPS } from './onboardingSteps';
 import styles from './Onboarding.module.css';
 
 const SWIPE_THRESHOLD_PX = 60;
@@ -8,14 +8,14 @@ const EDGE_RESISTANCE = 0.3;
 
 export interface OnboardingProps {
   stepIndex: number;
-  onSkip: () => void;
   onNext: () => void;
   /** Called when the user swipes right on any step after the first. */
   onPrevious: () => void;
+  /** "Log In" is available on every step, for a returning user whose session timed out. */
   onLogin: () => void;
 }
 
-export function Onboarding({ stepIndex, onSkip, onNext, onPrevious, onLogin }: OnboardingProps) {
+export function Onboarding({ stepIndex, onNext, onPrevious, onLogin }: OnboardingProps) {
   const isLast = stepIndex === ONBOARDING_STEPS.length - 1;
   const count = ONBOARDING_STEPS.length;
 
@@ -52,8 +52,6 @@ export function Onboarding({ stepIndex, onSkip, onNext, onPrevious, onLogin }: O
 
   return (
     <div className={styles.screen}>
-      <div className={styles.topBar} />
-
       <div className={styles.trackWrap}>
         <div
           className={styles.track}
@@ -67,45 +65,44 @@ export function Onboarding({ stepIndex, onSkip, onNext, onPrevious, onLogin }: O
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
         >
-          {ONBOARDING_STEPS.map((step) => (
-            <div className={styles.slide} style={{ width: `${100 / count}%` }} key={step.word}>
-              <h1 className={styles.word}>{step.word}</h1>
-              <div className={styles.illustrationWrap}>
-                <img className={styles.bg} src={ONBOARDING_BG} alt="" aria-hidden="true" draggable={false} />
-                <img
-                  className={styles.illustration}
-                  src={step.illustration}
-                  alt=""
-                  aria-hidden="true"
-                  draggable={false}
-                />
+          {ONBOARDING_STEPS.map((step, i) => (
+            <div className={styles.slide} style={{ width: `${100 / count}%` }} key={i}>
+              <img
+                className={styles.photo}
+                src={step.photo}
+                style={{ objectPosition: step.photoPosition }}
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+              />
+              <div className={styles.talkBubble} style={{ top: step.bubbleTop }}>
+                <div className={styles.textBox}>
+                  <p className={styles.body}>{step.body}</p>
+                </div>
+                <div className={styles.tailWrap}>
+                  <img className={styles.tail} src={tail} alt="" aria-hidden="true" draggable={false} />
+                </div>
               </div>
-              <p className={styles.body}>{step.body}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className={styles.progress} role="group" aria-label={`Step ${stepIndex + 1} of ${count}`}>
-        {ONBOARDING_STEPS.map((s, i) => (
-          <span key={s.word} className={`${styles.dot} ${i === stepIndex ? styles.dotActive : ''}`} />
-        ))}
-      </div>
+      <div className={styles.bottomOverlay}>
+        <div className={styles.progress} role="group" aria-label={`Step ${stepIndex + 1} of ${count}`}>
+          {ONBOARDING_STEPS.map((_, i) => (
+            <span key={i} className={`${styles.dot} ${i === stepIndex ? styles.dotActive : ''}`} />
+          ))}
+        </div>
 
-      <button type="button" className={styles.loginLink} onClick={onLogin}>
-        Already have an account? <strong>Log in here</strong>
-      </button>
-
-      <div className={styles.spacer} />
-
-      <div className={styles.footer}>
-        <NavFooter
-          onBack={onSkip}
-          onNext={onNext}
-          nextEnabled
-          backLabel="Skip"
-          nextLabel={isLast ? 'Get Started' : 'Next'}
-        />
+        <div className={styles.bottomNav}>
+          <button type="button" className={styles.loginButton} onClick={onLogin}>
+            Log In
+          </button>
+          <button type="button" className={styles.getStartedButton} onClick={onNext}>
+            {isLast ? 'Get Started' : 'Next'}
+          </button>
+        </div>
       </div>
     </div>
   );

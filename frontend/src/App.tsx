@@ -86,16 +86,6 @@ export function App() {
       return (
         <Onboarding
           stepIndex={step.stepIndex}
-          // Skip jumps straight to Create Account, bypassing Topics/Sources/Welcome —
-          // Back from there returns to this same onboarding step, not Welcome.
-          onSkip={() =>
-            setStep({
-              name: 'createAccount',
-              topicIds: [],
-              sourceIds: [],
-              backTo: { name: 'onboarding', stepIndex: step.stepIndex },
-            })
-          }
           onNext={() => {
             const nextIndex = step.stepIndex + 1;
             if (nextIndex >= ONBOARDING_STEPS.length) {

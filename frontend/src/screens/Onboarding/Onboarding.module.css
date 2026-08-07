@@ -1,30 +1,24 @@
 .screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
   background: var(--color-white);
 }
 
-.topBar {
-  width: 100%;
-  height: 70px;
-  background: var(--color-rage-200);
-  flex-shrink: 0;
-}
-
 .trackWrap {
-  width: 100%;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   touch-action: pan-y;
 }
 
 .track {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  height: 100%;
   cursor: grab;
 }
 
@@ -33,112 +27,115 @@
 }
 
 .slide {
+  position: relative;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.talkBubble {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 290px;
+  max-width: 74%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 0 20px;
+  align-items: flex-start;
+}
+
+.textBox {
+  width: 100%;
+  padding: 18px 24px 24px;
+  border-radius: 10px;
+  background: var(--color-white);
   box-sizing: border-box;
 }
 
-.word {
-  margin: 20px 0 0;
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  line-height: 40px;
-  color: var(--color-rage-200);
-  text-align: center;
-}
-
-.illustrationWrap {
-  position: relative;
-  width: 350px;
-  max-width: 100%;
-  /* Both dimensions shrink together below 350px wide, instead of width capping
-     while height stays rigid at 300px and clips the art on narrower phones. */
-  aspect-ratio: 350 / 300;
-  margin-top: 20px;
-  flex-shrink: 0;
-}
-
-@media (min-width: 600px) {
-  .illustrationWrap {
-    width: 420px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .illustrationWrap {
-    width: 480px;
-  }
-}
-
-.bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 85.7%; /* 300/350 of the wrapper, so it scales with it */
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-}
-
-.illustration {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: auto;
-  transform: translate(-50%, -50%);
-}
-
 .body {
-  margin: 24px 0 0;
-  font-family: var(--font-display);
-  font-size: 1.5625rem;
-  line-height: 36px;
-  color: var(--color-black);
-  text-align: center;
-  max-width: 330px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: var(--color-mist-500);
+}
+
+.tailWrap {
+  padding-left: 24px;
+}
+
+.tail {
+  display: block;
+  width: 66px;
+  height: auto;
+}
+
+.bottomOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .progress {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 24px;
+  gap: 20px;
 }
 
 .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-mist-200);
+  background: var(--color-mist-300);
 }
 
 .dotActive {
-  background: var(--color-aqua-200);
+  background: var(--color-white);
 }
 
-.loginLink {
-  margin-top: 24px;
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--color-mist-200);
-  padding: 2px 0;
+.bottomNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 24px 20px calc(36px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: var(--color-rage-200);
+}
+
+.loginButton,
+.getStartedButton {
+  padding: 12px 24px;
+  border-radius: 4px;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-navy-500);
+  font-weight: 800;
+  font-size: 1.125rem;
   cursor: pointer;
 }
 
-.loginLink strong {
-  font-weight: 800;
+.loginButton {
+  background: none;
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
 }
 
-.spacer {
-  flex: 1;
-}
-
-.footer {
-  width: 100%;
+.getStartedButton {
+  background: var(--color-white);
+  border: none;
+  color: var(--color-mist-500);
 }
