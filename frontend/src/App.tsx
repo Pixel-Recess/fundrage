@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { StepTransition } from './components/StepTransition';
 import { Splash } from './screens/Splash/Splash';
 import { Onboarding } from './screens/Onboarding/Onboarding';
 import { TopicSelection } from './screens/TopicSelection/TopicSelection';
@@ -80,7 +81,8 @@ export function App() {
   const [savedSourceIds, setSavedSourceIds] = useState<string[]>([]);
   const [receipts, setReceipts] = useState<Receipt[]>(RECEIPTS);
 
-  switch (step.name) {
+  function renderScreen() {
+    switch (step.name) {
     case 'splash':
       return <Splash onComplete={() => setStep({ name: 'onboarding', stepIndex: 0 })} />;
 
@@ -413,5 +415,12 @@ export function App() {
           }}
         />
       );
+    }
   }
+
+  return (
+    <StepTransition transitionKey={step.name} skipTransitionFor={['splash', 'nonprofits']}>
+      {renderScreen()}
+    </StepTransition>
+  );
 }
