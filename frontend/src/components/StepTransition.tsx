@@ -68,11 +68,11 @@ export function StepTransition({ transitionKey, children, skipTransitionFor = []
   }, [outgoing]);
 
   return (
-    <div className={styles.stage}>
+    <div className={`${styles.stage} ${outgoing ? styles.stageActive : ''}`}>
       {outgoing && (
         <div
           key={outgoing.key}
-          className={`${styles.layer} ${
+          className={`${styles.layer} ${styles.layerActive} ${
             outgoing.direction === 'forward' ? styles.exitForward : styles.exitBack
           }`}
         >
@@ -82,7 +82,9 @@ export function StepTransition({ transitionKey, children, skipTransitionFor = []
       <div
         key={transitionKey}
         className={`${styles.layer} ${
-          outgoing ? (direction === 'forward' ? styles.enterForward : styles.enterBack) : ''
+          outgoing
+            ? `${styles.layerActive} ${direction === 'forward' ? styles.enterForward : styles.enterBack}`
+            : ''
         }`}
       >
         {children}

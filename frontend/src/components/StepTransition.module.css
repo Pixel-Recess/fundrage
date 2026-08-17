@@ -1,4 +1,9 @@
-.stage {
+/* Only constrained/clipped while a transition is actually playing (.stageActive /
+   .layerActive, applied for the ~320ms a slide is in flight) — at rest, .stage and .layer
+   add no positioning at all, so the screen inside scrolls the real document exactly like it
+   did before this component existed. Permanently pinning height+overflow:hidden here was a
+   bug: it silently clipped any screen taller than one viewport instead of letting it scroll. */
+.stageActive {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -6,11 +11,13 @@
   overflow: hidden;
 }
 
-.layer {
+.layerActive {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Keep durations in sync with ANIMATION_MS in StepTransition.tsx. */
