@@ -30,7 +30,7 @@
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  gap: 30px 8%;
+  gap: 20px 7%;
   padding: 20px 20px 100px;
 }
 
@@ -40,7 +40,7 @@
 
 .box {
   display: flex;
-  flex: 0 0 46%;
+  flex: 0 0 28.6%;
   min-width: 0;
   flex-direction: column;
   align-items: center;
@@ -90,7 +90,8 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 15px;
   color: var(--color-white);
   text-align: center;
 }
