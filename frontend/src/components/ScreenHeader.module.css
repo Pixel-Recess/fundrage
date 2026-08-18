@@ -1,8 +1,11 @@
 .header {
-  position: fixed;
+  /* sticky (not fixed) so the header stays in normal document flow — it naturally reserves
+     whatever space it actually needs (including a title that wraps to a second line) instead
+     of relying on a separate spacer sized for a one-line guess, while still pinning to the
+     top and overlaying content as the page scrolls. Matches Figma's own `sticky top-0` header
+     treatment. */
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 2;
   background: var(--color-rage-200);
   /* Reserves room for the device's real status bar / notch / Dynamic Island on top of
@@ -21,17 +24,10 @@
   color: var(--color-rage-200);
 }
 
-.headerSpacer {
-  /* Matches .header's total rendered height so content isn't hidden underneath on first
-     render, now that .header is fixed and no longer reserves this space in normal flow. */
-  height: calc(80px + max(20px, env(safe-area-inset-top)));
-  flex-shrink: 0;
-}
-
 .headerRow {
   display: flex;
   align-items: center;
-  height: 40px;
+  min-height: 40px;
 }
 
 .title {

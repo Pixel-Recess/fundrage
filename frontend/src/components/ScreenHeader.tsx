@@ -17,30 +17,25 @@ export function ScreenHeader({
   variant = 'red',
 }: ScreenHeaderProps) {
   return (
-    <>
-      <header className={`${styles.header} ${variant === 'white' ? styles.headerWhite : ''}`}>
-        <div className={styles.headerRow}>
-          {showProfileIcon &&
-            (onProfileClick ? (
-              <button
-                type="button"
-                className={styles.leadingButton}
-                onClick={onProfileClick}
-                aria-label="Account"
-              >
-                <MenuIcon size={25} />
-              </button>
-            ) : (
-              <span className={styles.profileIcon}>
-                <MenuIcon size={25} />
-              </span>
-            ))}
-          <h1 className={styles.title}>{title}</h1>
-        </div>
-      </header>
-      {/* Reserves the header's own height in normal flow, since the header itself is
-          now fixed (and out of flow) so it can overlay content as the page scrolls. */}
-      <div className={styles.headerSpacer} aria-hidden="true" />
-    </>
+    <header className={`${styles.header} ${variant === 'white' ? styles.headerWhite : ''}`}>
+      <div className={styles.headerRow}>
+        {showProfileIcon &&
+          (onProfileClick ? (
+            <button
+              type="button"
+              className={styles.leadingButton}
+              onClick={onProfileClick}
+              aria-label="Account"
+            >
+              <MenuIcon size={25} />
+            </button>
+          ) : (
+            <span className={styles.profileIcon}>
+              <MenuIcon size={25} />
+            </span>
+          ))}
+        <h1 className={styles.title}>{title}</h1>
+      </div>
+    </header>
   );
 }

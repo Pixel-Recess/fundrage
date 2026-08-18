@@ -120,7 +120,6 @@ export function App() {
     case 'topics':
       return (
         <TopicSelection
-          mood="angry"
           onBack={() => setStep({ name: 'onboarding', stepIndex: ONBOARDING_STEPS.length - 1 })}
           onNext={(topicIds) => {
             setSavedTopicIds(topicIds);
@@ -388,7 +387,6 @@ export function App() {
     case 'editTopics':
       return (
         <TopicSelection
-          mood="angry"
           title="Your Topics"
           variant="settings"
           initialSelectedIds={savedTopicIds}

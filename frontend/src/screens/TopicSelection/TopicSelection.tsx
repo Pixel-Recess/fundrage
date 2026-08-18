@@ -6,8 +6,6 @@ import { TOPICS } from './topics';
 import styles from './TopicSelection.module.css';
 
 export interface TopicSelectionProps {
-  /** Fills the "What's making you [mood]?" header — carried over from the mood-capture screen. */
-  mood: string;
   /** Called when the user taps Back. */
   onBack: () => void;
   /** Called with the selected topic ids when the user taps Next (only reachable once enabled). */
@@ -24,7 +22,6 @@ export interface TopicSelectionProps {
 }
 
 export function TopicSelection({
-  mood,
   onBack,
   onNext,
   initialSelectedIds,
@@ -86,7 +83,7 @@ export function TopicSelection({
   return (
     <div className={`${styles.screen} ${isSettings ? styles.screenSettings : ''}`}>
       <ScreenHeader
-        title={title ?? `What’s making you ${mood}?`}
+        title={title ?? 'What causes do you care about most?'}
         showProfileIcon={false}
         variant={isSettings ? 'white' : 'red'}
       />
