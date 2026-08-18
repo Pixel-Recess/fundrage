@@ -1,4 +1,4 @@
-import { ProfileIcon } from './ProfileIcon';
+import { MenuIcon } from './icons/MenuIcon';
 import styles from './ScreenHeader.module.css';
 
 export interface ScreenHeaderProps {
@@ -28,11 +28,11 @@ export function ScreenHeader({
                 onClick={onProfileClick}
                 aria-label="Account"
               >
-                <ProfileIcon size={36} />
+                <MenuIcon size={25} />
               </button>
             ) : (
               <span className={styles.profileIcon}>
-                <ProfileIcon size={36} />
+                <MenuIcon size={25} />
               </span>
             ))}
           <h1 className={styles.title}>{title}</h1>
