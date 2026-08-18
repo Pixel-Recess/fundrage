@@ -26,7 +26,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     photo: find,
-    photoPosition: '35% 25%',
+    photoPosition: '50% 15%',
     bubbleTop: '54.5%',
     body: 'Fundrage connects you with nonprofits that directly support the causes that make you want to take action.',
   },
