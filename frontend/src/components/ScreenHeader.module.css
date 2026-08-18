@@ -30,7 +30,7 @@
 
 .headerRow {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   height: 40px;
 }
 
