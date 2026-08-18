@@ -22,7 +22,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     photo: feel,
     photoPosition: '70% 20%',
     bubbleTop: '33.2%',
-    body: 'Are you reading the news or seeing something that makes you feel hopeless, frustrated, angry, or even excited, but don’t know what to do?',
+    body: 'The news got you angry, frustrated or hopeless? Wish there was something you could do? Us, too.',
   },
   {
     photo: find,
@@ -34,6 +34,6 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     photo: fundrage,
     photoPosition: '65% 15%',
     bubbleTop: '37.9%',
-    body: 'Donate to the nonprofit that channels your anger into action!',
+    body: 'So when news breaks, donate to a non-profit to channel anger into action.',
   },
 ];
