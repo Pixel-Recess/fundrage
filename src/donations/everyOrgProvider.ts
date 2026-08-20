@@ -26,7 +26,9 @@ function safeEqual(a: string, b: string): boolean {
  * against Every.org (see Phase 1 plan). Do not trust this route with production traffic until
  * that's confirmed with Every.org support.
  */
-export function createEveryOrgProvider(config: EveryOrgConfig): DonationProvider {
+export function createEveryOrgProvider(
+  config: EveryOrgConfig,
+): DonationProvider {
   return {
     buildDonateLink({ nonprofitSlug, partnerDonationId, amountCents }) {
       const params = new URLSearchParams({

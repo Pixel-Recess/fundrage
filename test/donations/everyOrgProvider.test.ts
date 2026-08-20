@@ -34,7 +34,11 @@ describe("parseWebhookPayload", () => {
     const payload = provider.parseWebhookPayload({
       chargeId: "charge-1",
       partnerDonationId: "donation-1",
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
       amount: "10.00",
       netAmount: "9.70",
       currency: "USD",
@@ -53,7 +57,11 @@ describe("parseWebhookPayload", () => {
   it("treats a missing partnerDonationId as null rather than throwing", () => {
     const payload = provider.parseWebhookPayload({
       chargeId: "charge-1",
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
     });
     expect(payload.partnerDonationId).toBeNull();
   });
@@ -63,7 +71,9 @@ describe("parseWebhookPayload", () => {
   });
 
   it("throws on a payload missing toNonprofit", () => {
-    expect(() => provider.parseWebhookPayload({ chargeId: "charge-1" })).toThrow();
+    expect(() =>
+      provider.parseWebhookPayload({ chargeId: "charge-1" }),
+    ).toThrow();
   });
 });
 

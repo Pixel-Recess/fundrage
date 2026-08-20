@@ -10,7 +10,9 @@ export interface InitiateParams {
 }
 
 export interface DonationService {
-  initiate(params: InitiateParams): Promise<{ donationId: string; donateLink: string }>;
+  initiate(
+    params: InitiateParams,
+  ): Promise<{ donationId: string; donateLink: string }>;
   confirmFromWebhook(
     payload: PartnerWebhookPayload,
   ): Promise<{ handled: boolean }>;

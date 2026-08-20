@@ -85,7 +85,11 @@ describe("confirmFromWebhook", () => {
     const result = await service().confirmFromWebhook({
       chargeId: "charge-1",
       partnerDonationId: donationId,
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
       amount: "10.00",
       netAmount: "9.70",
       currency: "USD",
@@ -117,7 +121,11 @@ describe("confirmFromWebhook", () => {
     const payload = {
       chargeId: "charge-2",
       partnerDonationId: donationId,
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
       amount: "10.00",
       netAmount: "9.70",
       currency: "USD",
@@ -141,7 +149,11 @@ describe("confirmFromWebhook", () => {
     const result = await service().confirmFromWebhook({
       chargeId: "charge-3",
       partnerDonationId: crypto.randomUUID(),
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
       amount: "10.00",
       netAmount: "9.70",
       currency: "USD",
@@ -155,7 +167,11 @@ describe("confirmFromWebhook", () => {
     const result = await service().confirmFromWebhook({
       chargeId: "charge-4",
       partnerDonationId: null,
-      toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      toNonprofit: {
+        slug: "givedirectly",
+        ein: "271661997",
+        name: "Give Directly",
+      },
       amount: "10.00",
       netAmount: "9.70",
       currency: "USD",

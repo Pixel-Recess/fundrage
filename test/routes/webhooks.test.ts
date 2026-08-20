@@ -45,12 +45,23 @@ beforeEach(async () => {
   donationId = donationRows[0]!.id;
 });
 
-function payload(overrides: Partial<{ chargeId: string; partnerDonationId: string | null }> = {}) {
+function payload(
+  overrides: Partial<{
+    chargeId: string;
+    partnerDonationId: string | null;
+  }> = {},
+) {
   return {
     chargeId: overrides.chargeId ?? crypto.randomUUID(),
     partnerDonationId:
-      overrides.partnerDonationId === undefined ? donationId : overrides.partnerDonationId,
-    toNonprofit: { slug: "givedirectly", ein: "271661997", name: "Give Directly" },
+      overrides.partnerDonationId === undefined
+        ? donationId
+        : overrides.partnerDonationId,
+    toNonprofit: {
+      slug: "givedirectly",
+      ein: "271661997",
+      name: "Give Directly",
+    },
     amount: "10.00",
     netAmount: "9.70",
     currency: "USD",
@@ -69,10 +80,12 @@ describe("POST /webhooks/every-org", () => {
     });
     expect(res.statusCode).toBe(200);
 
-    const { rows } = await db.query<{ status: string; everyorg_donation_id: string | null }>(
-      `SELECT status, everyorg_donation_id FROM donations WHERE id = $1`,
-      [donationId],
-    );
+    const { rows } = await db.query<{
+      status: string;
+      everyorg_donation_id: string | null;
+    }>(`SELECT status, everyorg_donation_id FROM donations WHERE id = $1`, [
+      donationId,
+    ]);
     expect(rows[0]?.status).toBe("confirmed");
     expect(rows[0]?.everyorg_donation_id).toBe("charge-a");
   });
@@ -97,7 +110,10 @@ describe("POST /webhooks/every-org", () => {
     const res = await app.inject({
       method: "POST",
       url: "/webhooks/every-org",
-      headers: { authorization: "Bearer wrong-token", "content-type": "application/json" },
+      headers: {
+        authorization: "Bearer wrong-token",
+        "content-type": "application/json",
+      },
       payload: payload({ chargeId: "charge-c" }),
     });
     expect(res.statusCode).toBe(401);
@@ -132,7 +148,10 @@ describe("POST /webhooks/every-org", () => {
       method: "POST",
       url: "/webhooks/every-org",
       headers: { ...AUTH_HEADER, "content-type": "application/json" },
-      payload: payload({ chargeId: "charge-e", partnerDonationId: crypto.randomUUID() }),
+      payload: payload({
+        chargeId: "charge-e",
+        partnerDonationId: crypto.randomUUID(),
+      }),
     });
     expect(res.statusCode).toBe(200);
   });
