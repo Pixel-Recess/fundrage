@@ -46,6 +46,11 @@ export function testConfig() {
       gdeltQuery: "sourcelang:english",
       dedupeTtlHours: 48,
     },
+    everyOrg: {
+      baseUrl: "https://staging.every.org",
+      webhookToken: "test-webhook-token",
+      webhookAuthToken: "test-webhook-auth-token",
+    },
     frontendOrigin: "http://localhost:5173",
   };
 }

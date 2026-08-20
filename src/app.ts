@@ -8,6 +8,11 @@ import { registerIdempotency } from "./plugins/idempotency.js";
 import { registerHealthRoutes } from "./routes/health.js";
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerLiveRoutes, type LiveRoutesDeps } from "./routes/live.js";
+import { registerWebhookRoutes } from "./routes/webhooks.js";
+import { createEveryOrgProvider } from "./donations/everyOrgProvider.js";
+import { createDonationService } from "./donations/service.js";
+import type { DonationProvider } from "./donations/provider.js";
+import type { DonationService } from "./donations/service.js";
 
 export interface AppDeps {
   db: Db;
@@ -17,6 +22,9 @@ export interface AppDeps {
   /** Test seams for the experimental live-data routes — see routes/live.ts. */
   fetchNews?: LiveRoutesDeps["fetchNews"];
   searchCharities?: LiveRoutesDeps["searchCharities"];
+  /** Test seams for the donation rail — see donations/provider.ts, donations/service.ts. */
+  donationProvider?: DonationProvider;
+  donationService?: DonationService;
 }
 
 export function buildApp(config: Config, deps: AppDeps): FastifyInstance {
@@ -46,6 +54,12 @@ export function buildApp(config: Config, deps: AppDeps): FastifyInstance {
     fetchNews: deps.fetchNews,
     searchCharities: deps.searchCharities,
   });
+
+  const donationProvider =
+    deps.donationProvider ?? createEveryOrgProvider(config.everyOrg);
+  const donationService =
+    deps.donationService ?? createDonationService(deps.db, donationProvider);
+  registerWebhookRoutes(app, { provider: donationProvider, donationService });
 
   return app;
 }

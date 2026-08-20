@@ -21,3 +21,15 @@ export interface UserRow {
   apple_sub: string;
   email: string | null;
 }
+
+export interface DonationRow {
+  id: string;
+  status: "initiated" | "confirmed" | "failed";
+  amount_cents: number;
+  everyorg_donation_id: string | null;
+}
+
+export interface CharityRow {
+  id: string;
+  everyorg_slug: string | null;
+}

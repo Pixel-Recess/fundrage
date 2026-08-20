@@ -16,6 +16,11 @@ export interface Config {
     dedupeTtlHours: number;
   };
   everyOrgApiKey?: string | undefined;
+  everyOrg: {
+    baseUrl: string;
+    webhookToken: string;
+    webhookAuthToken: string;
+  };
   frontendOrigin: string;
 }
 
@@ -49,6 +54,11 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       dedupeTtlHours: Number(env.INGESTION_DEDUPE_TTL_HOURS ?? 48),
     },
     everyOrgApiKey: env.EVERY_ORG_API_KEY || undefined,
+    everyOrg: {
+      baseUrl: env.EVERY_ORG_BASE_URL ?? "https://www.every.org",
+      webhookToken: env.EVERY_ORG_WEBHOOK_TOKEN ?? "",
+      webhookAuthToken: env.EVERY_ORG_WEBHOOK_AUTH_TOKEN ?? "",
+    },
     frontendOrigin: env.FRONTEND_ORIGIN ?? "http://localhost:5173",
   };
 }
